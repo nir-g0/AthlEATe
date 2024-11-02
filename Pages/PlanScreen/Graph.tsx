@@ -1,21 +1,31 @@
-import {useState} from 'react'
-import {Dimensions, Alert} from 'react-native'
-import {LineChart} from 'react-native-chart-kit'
+import { useState } from 'react'
+import { Dimensions, Alert } from 'react-native'
+import { LineChart } from 'react-native-chart-kit'
 
 function Graph () {
   const [data, setData] = useState([
-    {idx: 0, value: Math.random() * 10, label: 'Jan', nonShorted: 'January'},
-    {idx: 1, value: Math.random() * 10, label: 'Feb', nonShorted: 'February'},
-    {idx: 2, value: Math.random() * 10, label: 'Mar', nonShorted: 'March'},
-    {idx: 3, value: Math.random() * 10, label: 'Apr', nonShorted: 'April'},
-    {idx: 4, value: Math.random() * 10, label: 'May', nonShorted: 'May'},
-    {idx: 5, value: Math.random() * 10, label: 'Jun', nonShorted: 'June'},
-    {idx: 6, value: Math.random() * 10, label: 'Jul', nonShorted: 'July'},
-    {idx: 7, value: Math.random() * 10, label: 'Aug', nonShorted: 'August'},
-    {idx: 8, value: Math.random() * 10, label: 'Sep', nonShorted: 'September'},
-    {idx: 9, value: Math.random() * 10, label: 'Oct', nonShorted: 'October'},
-    {idx: 10, value: Math.random() * 10, label: 'Nov', nonShorted: 'November'},
-    {idx: 11, value: Math.random() * 10, label: 'Dec', nonShorted: 'December'},
+    { idx: 0, value: Math.random() * 10, label: 'Jan', nonShorted: 'January' },
+    { idx: 1, value: Math.random() * 10, label: 'Feb', nonShorted: 'February' },
+    { idx: 2, value: Math.random() * 10, label: 'Mar', nonShorted: 'March' },
+    { idx: 3, value: Math.random() * 10, label: 'Apr', nonShorted: 'April' },
+    { idx: 4, value: Math.random() * 10, label: 'May', nonShorted: 'May' },
+    { idx: 5, value: Math.random() * 10, label: 'Jun', nonShorted: 'June' },
+    { idx: 6, value: Math.random() * 10, label: 'Jul', nonShorted: 'July' },
+    { idx: 7, value: Math.random() * 10, label: 'Aug', nonShorted: 'August' },
+    {
+      idx: 8,
+      value: Math.random() * 10,
+      label: 'Sep',
+      nonShorted: 'September'
+    },
+    { idx: 9, value: Math.random() * 10, label: 'Oct', nonShorted: 'October' },
+    {
+      idx: 10,
+      value: Math.random() * 10,
+      label: 'Nov',
+      nonShorted: 'November'
+    },
+    { idx: 11, value: Math.random() * 10, label: 'Dec', nonShorted: 'December' }
   ])
   return (
     <LineChart
@@ -23,7 +33,7 @@ function Graph () {
         labels: data.map(d => {
           return d.label
         }),
-        datasets: [{data: data.map(d => d.value)}],
+        datasets: [{ data: data.map(d => d.value) }]
       }}
       fromZero
       segments={5}
@@ -40,7 +50,7 @@ function Graph () {
           [
             {
               text: 'Cancel',
-              style: 'cancel',
+              style: 'cancel'
             },
             {
               text: 'OK',
@@ -49,19 +59,19 @@ function Graph () {
                 if (!isNaN(intValue) && intValue >= 0 && intValue <= 10) {
                   setData(prevData =>
                     prevData.map((item, idx) =>
-                      idx === out.index ? {...item, value: intValue} : item,
-                    ),
+                      idx === out.index ? { ...item, value: intValue } : item
+                    )
                   )
                 } else {
                   Alert.alert(
                     'Invalid input',
-                    'Please enter a number between 0 and 10.',
+                    'Please enter a number between 0 and 10.'
                   )
                 }
-              },
-            },
+              }
+            }
           ],
-          'plain-text',
+          'plain-text'
         )
       }}
       chartConfig={{
@@ -69,22 +79,22 @@ function Graph () {
         backgroundGradientFrom: '#FFFFFF',
         backgroundGradientTo: '#FFFFFF',
         decimalPlaces: 0,
-        color: (opacity = 1) => `rgba(96, 227, 74, 1)`,
+        color: (opacity = 1) => `rgba(76, 217, 99, 1)`,
         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         propsForDots: {
           r: '8',
           strokeWidth: '.31',
-          stroke: '#39c026',
+          stroke: 's'
         },
         propsForBackgroundLines: {
           strokeWidth: '.5',
-          stroke: '#0F0F00',
+          stroke: '#0F0F00'
         },
-        strokeWidth: 2,
+        strokeWidth: 2
       }}
       bezier
       style={{
-        borderRadius: 10,
+        borderRadius: 10
       }}
     />
   )
