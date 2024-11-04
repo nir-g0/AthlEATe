@@ -23,11 +23,36 @@ function PlanScreen ({ navigation }) {
           Adjust season intensity:
         </Text>
         <Graph />
-        <PlanButton title={'Diet preferences & allergies'} />
-        <PlanButton title={'Nutrition & weight goals'} />
-        <PlanButton title={'Sport specifics'} />
-        <PlanButton title={'Meal frequency and timing'} />
-        <PlanButton title={'Budget adjustments'} />
+        <PlanButton
+          title={'Diet preferences & allergies'}
+          press={() => {
+            navigation.navigate('Diet')
+          }}
+        />
+        <PlanButton
+          title={'Nutrition & weight goals'}
+          press={() => {
+            navigation.navigate('Nutrition')
+          }}
+        />
+        <PlanButton
+          title={'Sport specifics'}
+          press={() => {
+            navigation.navigate('Sport')
+          }}
+        />
+        <PlanButton
+          title={'Meal frequency and timing'}
+          press={() => {
+            navigation.navigate('Timing')
+          }}
+        />
+        <PlanButton
+          title={'Budget adjustments'}
+          press={() => {
+            navigation.navigate('Budget')
+          }}
+        />
         <TouchableOpacity
           style={{
             backgroundColor: '#42D951',
@@ -37,9 +62,7 @@ function PlanScreen ({ navigation }) {
             justifyContent: 'center',
             alignItems: 'center',
             padding: 0,
-            marginBottom: '1%',
-            borderBottomColor: '#AAAAAA',
-            borderBottomWidth: 1
+            marginBottom: '1%'
           }}
         >
           <Text style={AppStyles.sectionTitle}>Generate Plan</Text>

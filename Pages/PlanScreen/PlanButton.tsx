@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, View } from 'react-native'
 
-function PlanButton ({ title }) {
+function PlanButton ({ title, press = () => {} }) {
   return (
     <View
       style={{
@@ -27,7 +27,7 @@ function PlanButton ({ title }) {
         </Text>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={press}>
         <Text
           style={{
             color: '#797979',

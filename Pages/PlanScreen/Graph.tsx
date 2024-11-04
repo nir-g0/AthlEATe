@@ -84,7 +84,7 @@ function Graph () {
         propsForDots: {
           r: '8',
           strokeWidth: '.31',
-          stroke: 's'
+          stroke: '#FFFFFF'
         },
         propsForBackgroundLines: {
           strokeWidth: '.5',
