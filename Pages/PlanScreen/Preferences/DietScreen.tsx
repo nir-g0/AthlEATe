@@ -7,9 +7,8 @@ import {
 } from 'react-native'
 import DefaultPage from '../../../ConstantStyles/DefaultPage'
 import DietPicker from './DietType/DietPicker'
-import AllergyPicker from './DietType/AllergyPicker'
-import FoodPicker from './DietType/FoodPicker'
 import AppStyles from '../../../ConstantStyles/Styles'
+import GenericPreference from '../../../ConstantStyles/GenericPreference'
 
 function DietScreen ({ navigation }: { navigation: any }) {
   return (
@@ -25,17 +24,27 @@ function DietScreen ({ navigation }: { navigation: any }) {
       >
         <Text style={styles.Title}>Select Your Diet Type</Text>
         <DietPicker />
-        <Text style={styles.Title}>Add Food Allergens</Text>
-        <AllergyPicker />
-        <Text style={styles.Title}>Other Food Preferences</Text>
-        <FoodPicker />
+        <GenericPreference
+          title={'Allergies'}
+          placeholder={'Type here...'}
+          buttonText={'Add'}
+          selectedItems={[]}
+          onSelectionChange={() => {}}
+        />
+        <GenericPreference
+          title={'Other Food Preferences'}
+          placeholder={'Type here...'}
+          buttonText={'Add'}
+          selectedItems={[]}
+          onSelectionChange={() => {}}
+        />
         <View style={{ height: '50%' }}>
           <TouchableOpacity
             style={{
               backgroundColor: '#42D951',
               borderRadius: 10,
               width: '100%',
-              height: '10%',
+              height: '20%',
               justifyContent: 'center',
               alignSelf: 'center',
               paddingHorizontal: 30,

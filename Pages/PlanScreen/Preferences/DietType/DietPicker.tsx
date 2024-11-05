@@ -23,7 +23,7 @@ function DietPicker () {
   return (
     <ScrollView
       style={{
-        maxHeight: '10%'
+        maxHeight: '8%'
       }}
       horizontal={true}
     >
@@ -59,7 +59,18 @@ function DietPicker () {
               backgroundColor: selectedDiet.includes(type) ? '#39c026' : 'white'
             }}
           />
-          <Text style={{ marginLeft: 3, marginRight: 10 }}>{type}</Text>
+          <Text
+            style={{
+              color: '#000000',
+              fontWeight: '200',
+              fontSize: 16,
+              fontFamily: 'Menlo',
+              marginLeft: 3,
+              marginRight: 10
+            }}
+          >
+            {type}
+          </Text>
         </TouchableOpacity>
       ))}
     </ScrollView>
@@ -69,7 +80,7 @@ const styles = StyleSheet.create({
   Bubble: {
     height: 20,
     width: 20,
-    borderRadius: 10,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: '#39c026'
   }
