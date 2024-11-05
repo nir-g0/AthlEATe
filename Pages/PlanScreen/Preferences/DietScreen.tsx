@@ -6,74 +6,45 @@ import {
   StyleSheet
 } from 'react-native'
 import DefaultPage from '../../../ConstantStyles/DefaultPage'
-import { useState } from 'react'
+import DietPicker from './DietType/DietPicker'
+import AllergyPicker from './DietType/AllergyPicker'
+import FoodPicker from './DietType/FoodPicker'
+import AppStyles from '../../../ConstantStyles/Styles'
 
-const dietTypes = [
-  'Default',
-  'Vegetarian',
-  'Pescatarian',
-  'Vegan',
-  'Keto',
-  'Kosher',
-  'Halal'
-]
-
-function DietScreen ({ navigation }) {
-  const [selectedDiet, setSelectedDiet] = useState<string[]>([])
-
+function DietScreen ({ navigation }: { navigation: any }) {
   return (
     <DefaultPage title={'Diet Preferences'} navigation={navigation}>
       <View
-        style={{ marginLeft: '5%', alignContent: 'center', marginTop: '1%' }}
+        style={{
+          marginHorizontal: '5%',
+          alignContent: 'center',
+          marginTop: '1%',
+          flex: 1,
+          justifyContent: 'center'
+        }}
       >
-        <Text
-          style={{
-            color: '#000000',
-            fontWeight: '400',
-            fontSize: 16,
-            fontFamily: 'Menlo',
-            alignSelf: 'flex-start'
-          }}
-        >
-          Select Your Diet Type
-        </Text>
-        <ScrollView style={{ maxHeight: '25%' }} horizontal={true}>
-          {dietTypes.map(type => (
-            <TouchableOpacity
-              key={type}
-              onPress={() => {
-                if (type === 'Default') {
-                  setSelectedDiet(['Default'])
-                } else if (selectedDiet.includes(type)) {
-                  let ret = selectedDiet.filter(item => {
-                    return item !== type
-                  })
-                  setSelectedDiet([...ret])
-                } else {
-                  let ret = selectedDiet.filter(item => {
-                    return item !== 'Default'
-                  })
-                  setSelectedDiet([type, ...ret])
-                }
-              }}
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: 10
-              }}
-            >
-              <View
-                style={{
-                  ...styles.Bubble,
-                  backgroundColor: selectedDiet.includes(type)
-                    ? '#39c026'
-                    : 'white'
-                }}
-              />
-              <Text style={{ marginLeft: 3, marginRight: 10 }}>{type}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <Text style={styles.Title}>Select Your Diet Type</Text>
+        <DietPicker />
+        <Text style={styles.Title}>Add Food Allergens</Text>
+        <AllergyPicker />
+        <Text style={styles.Title}>Other Food Preferences</Text>
+        <FoodPicker />
+        <View style={{ height: '50%' }}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#42D951',
+              borderRadius: 10,
+              width: '100%',
+              height: '10%',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              paddingHorizontal: 30,
+              margin: 5
+            }}
+          >
+            <Text style={AppStyles.sectionTitle}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </DefaultPage>
   )
@@ -86,6 +57,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#39c026'
+  },
+  Title: {
+    color: '#000000',
+    fontWeight: '400',
+    fontSize: 16,
+    fontFamily: 'Menlo',
+    alignSelf: 'flex-start'
   }
 })
 export default DietScreen
