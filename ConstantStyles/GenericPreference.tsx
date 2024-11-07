@@ -5,7 +5,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native'
 
 type PickerProps = {
@@ -50,14 +51,18 @@ const GeneralPicker = ({
       <View style={styles.inputRow}>
         <TextInput
           style={styles.input}
-          placeholderTextColor={'#000000'}
+          placeholderTextColor={'#AAAAAA'}
           placeholder={placeholder}
           value={text}
           onChangeText={setText}
           cursorColor={'#000000'}
         />
         <TouchableOpacity style={styles.addButton} onPress={handleAddItem}>
-          <Text style={styles.Text}>{buttonText}</Text>
+          <Image
+            style={{ width: 16, height: 16 }}
+            resizeMode='cover'
+            source={require('../assets/icons/add.png')}
+          ></Image>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollView} horizontal={true}>
@@ -76,12 +81,12 @@ const GeneralPicker = ({
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: '20%',
+    flex: 1.5,
     paddingBottom: 10
   },
   title: {
     color: '#000000',
-    fontWeight: '400',
+    fontWeight: '500',
     fontSize: 16,
     fontFamily: 'Menlo',
     alignSelf: 'flex-start',
@@ -94,15 +99,18 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 'auto',
-    width: '50%',
+    // width: '80%',
+    flex: 1,
     paddingVertical: 8,
     paddingHorizontal: 10,
     borderColor: '#42D951',
     borderWidth: 1,
-    borderRadius: 18,
+    borderRadius: 10,
     marginRight: 8
   },
   addButton: {
+    flex: 0.2,
+    marginRight: 8,
     backgroundColor: '#42D951',
     borderRadius: 18,
     paddingVertical: 8,

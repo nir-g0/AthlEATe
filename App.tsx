@@ -49,11 +49,7 @@ function App (): React.JSX.Element {
           name='Budget'
           component={BudgetScreen}
         />
-        <Stack.Screen
-          options={Preference}
-          name='Nutrition'
-          component={NutritionScreen}
-        />
+
         <Stack.Screen
           options={Preference}
           name='Sport'

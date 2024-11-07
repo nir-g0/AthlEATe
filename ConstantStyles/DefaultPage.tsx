@@ -8,14 +8,21 @@ function DefaultPage ({ navigation, title = 'Title', children }) {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          borderBottomColor: '#AAAAAA',
-          borderBottomWidth: 1,
+          borderBottomColor: '#BBBBBB',
+          borderBottomWidth: 0.5,
           marginHorizontal: '2.5%'
         }}
       >
         <View style={{ flex: 1 }} />
         <View style={{ flex: 2, alignItems: 'center' }}>
-          <Text style={{ fontFamily: 'Menlo', color: '#000000', fontSize: 18 }}>
+          <Text
+            style={{
+              fontFamily: 'Menlo',
+              color: '#000000',
+              fontSize: 19,
+              fontWeight: '600'
+            }}
+          >
             {title}
           </Text>
         </View>

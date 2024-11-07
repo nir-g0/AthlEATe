@@ -17,15 +17,23 @@ const dietTypes = [
   'Vegan',
   'Vegetarian'
 ]
-function DietPicker () {
+function DietPicker ({
+  onSelectionChange
+}: {
+  onSelectionChange: (items: string[]) => void
+}) {
   const [selectedDiet, setSelectedDiet] = useState<string[]>([''])
-
+  const handleSelectionChange = () => {
+    onSelectionChange(selectedDiet)
+  }
   return (
-    <ScrollView
+    <View
       style={{
-        maxHeight: '8%'
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        flex: 1, // Adjust if needed to control vertical space
+        overflow: 'hidden'
       }}
-      horizontal={true}
     >
       {dietTypes.map(type => (
         <TouchableOpacity
@@ -73,7 +81,7 @@ function DietPicker () {
           </Text>
         </TouchableOpacity>
       ))}
-    </ScrollView>
+    </View>
   )
 }
 const styles = StyleSheet.create({

@@ -13,7 +13,7 @@ function PlanScreen ({ navigation }) {
           style={{
             color: '#000000',
             fontWeight: '400',
-            fontSize: 12,
+            fontSize: 16,
             fontFamily: 'Menlo',
             alignSelf: 'flex-start',
             marginLeft: '5%',
@@ -27,12 +27,6 @@ function PlanScreen ({ navigation }) {
           title={'Diet preferences & allergies'}
           press={() => {
             navigation.navigate('Diet')
-          }}
-        />
-        <PlanButton
-          title={'Nutrition & weight goals'}
-          press={() => {
-            navigation.navigate('Nutrition')
           }}
         />
         <PlanButton
