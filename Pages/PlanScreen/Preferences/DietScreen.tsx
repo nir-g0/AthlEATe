@@ -49,7 +49,7 @@ function DietScreen ({ navigation }: { navigation: any }) {
         />
         <View style={{ flex: 0.45, flexDirection: 'row', margin: 2.5 }}>
           <Text style={{ ...styles.Title, flex: 1 }}>
-            Current Weight (lbs):{' '}
+            Current Weight (lbs):
           </Text>
           <TextInput
             style={{ ...styles.input, flex: 0.15 }}
@@ -86,7 +86,7 @@ function DietScreen ({ navigation }: { navigation: any }) {
             cursorColor={'#000000'}
           />
         </View>
-        <View style={{ flex: 0.45 }} /> {/* spacer*/}
+        <View style={{ flex: 0.45 }} />
         <View style={{ flex: 0.45, flexDirection: 'row', margin: 2.5 }}>
           <Text style={{ ...styles.Title, flex: 1 }}>Daily Caloric Goal:</Text>
           <TextInput
@@ -119,7 +119,7 @@ function DietScreen ({ navigation }: { navigation: any }) {
             cursorColor={'#000000'}
           />
         </View>
-        <View style={{ flex: 0.45 }} /> {/* spacer*/}
+        <View style={{ flex: 0.45 }} />
         <View style={{ flex: 1 }}>
           <TouchableOpacity
             style={{

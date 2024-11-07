@@ -17,6 +17,7 @@ import BudgetScreen from './Pages/PlanScreen/Preferences/BudgetScreen'
 import NutritionScreen from './Pages/PlanScreen/Preferences/NutritionScreen'
 import SportsScreen from './Pages/PlanScreen/Preferences/SportSpecificsScreen'
 import TimingScreen from './Pages/PlanScreen/Preferences/TimingScreen'
+import SportScreen from './Pages/PlanScreen/Preferences/SportScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -53,7 +54,7 @@ function App (): React.JSX.Element {
         <Stack.Screen
           options={Preference}
           name='Sport'
-          component={SportsScreen}
+          component={SportScreen}
         />
         <Stack.Screen
           options={Preference}
