@@ -36,15 +36,9 @@ function PlanScreen ({ navigation }) {
           }}
         />
         <PlanButton
-          title={'Meal frequency and timing'}
+          title={'Meal timing and budget'}
           press={() => {
             navigation.navigate('Timing')
-          }}
-        />
-        <PlanButton
-          title={'Budget adjustments'}
-          press={() => {
-            navigation.navigate('Budget')
           }}
         />
         <TouchableOpacity

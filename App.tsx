@@ -47,12 +47,6 @@ function App (): React.JSX.Element {
         <Stack.Screen options={Preference} name='Diet' component={Diet} />
         <Stack.Screen
           options={Preference}
-          name='Budget'
-          component={BudgetScreen}
-        />
-
-        <Stack.Screen
-          options={Preference}
           name='Sport'
           component={SportScreen}
         />

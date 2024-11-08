@@ -6,11 +6,13 @@ import {
   StyleSheet,
   ScrollView
 } from 'react-native'
+import Slider from '@react-native-community/slider'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import DefaultPage from '../../../ConstantStyles/DefaultPage'
 import AppStyles from '../../../ConstantStyles/Styles'
 
 function TimingScreen ({ navigation }) {
+  const [budget, setBudget] = useState(3)
   const [mealCount, setMealCount] = useState(3) // Default 3 meals per day
   const [mealTimes, setMealTimes] = useState(
     Array.from({ length: 3 }, () => new Date())
@@ -52,7 +54,7 @@ function TimingScreen ({ navigation }) {
 
   return (
     <DefaultPage title='Meal Timing' navigation={navigation}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>How many meals do you have per day?</Text>
         <View style={styles.mealCountContainer}>
           <TouchableOpacity
@@ -101,13 +103,44 @@ function TimingScreen ({ navigation }) {
             )}
           </View>
         ))}
-
+        <View
+          style={{
+            marginVertical: 20,
+            alignItems: 'center',
+            width: '90%',
+            alignSelf: 'center'
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '500',
+              color: '#000',
+              marginBottom: 5
+            }}
+          >
+            Set Your Budget: ${budget.toFixed(2)} per meal
+          </Text>
+          <View style={{ minHeight: '30%' }}>
+            <Slider
+              style={{ width: '100%' }}
+              minimumValue={3.5}
+              maximumValue={30}
+              step={0.5}
+              value={budget}
+              onValueChange={value => setBudget(value)}
+              minimumTrackTintColor='red'
+              maximumTrackTintColor='blue'
+              thumbTintColor='#42D951'
+            />
+          </View>
+        </View>
         <View style={styles.saveButtonContainer}>
           <TouchableOpacity style={styles.saveButton}>
             <Text style={AppStyles.sectionTitle}>Save</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </DefaultPage>
   )
 }
