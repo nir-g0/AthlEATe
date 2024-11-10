@@ -57,7 +57,7 @@ function SportScreen ({ navigation }) {
         />
 
         <GenericPreference
-          title='Make your diet align with your position/event, add them here:'
+          title='Add your event(s) or position(s):'
           placeholder='Add here...'
           buttonText='Add'
           selectedItems={[]}
@@ -69,52 +69,54 @@ function SportScreen ({ navigation }) {
         {/* Season Duration Section */}
         <View>
           <Text style={styles.title}>How long is your season?</Text>
-          <View style={styles.dateButtonContainer}>
-            <TouchableOpacity
-              onPress={() => setShowStartPicker(!showStartPicker)}
-              style={styles.dateButton}
-            >
-              <Text style={styles.dateText}>
-                From: {formatMonthYear(startDate)}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setShowEndPicker(!showEndPicker)}
-              style={styles.dateButton}
-            >
-              <Text style={styles.dateText}>
-                To: {formatMonthYear(endDate)}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.datePickerContainer}>
-            <View style={styles.datePickerWrapper}>
-              {showStartPicker && (
-                <DateTimePicker
-                  value={startDate || today}
-                  mode='date'
-                  display='default'
-                  minimumDate={oneYearAgo}
-                  maximumDate={oneYearFromToday}
-                  onChange={(event, date) =>
-                    handleDateChange(event, date, 'start')
-                  }
-                />
-              )}
+          <View style={{ minHeight: '20%' }}>
+            <View style={styles.dateButtonContainer}>
+              <TouchableOpacity
+                onPress={() => setShowStartPicker(!showStartPicker)}
+                style={styles.dateButton}
+              >
+                <Text style={styles.dateText}>
+                  From: {formatMonthYear(startDate)}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setShowEndPicker(!showEndPicker)}
+                style={styles.dateButton}
+              >
+                <Text style={styles.dateText}>
+                  To: {formatMonthYear(endDate)}
+                </Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.datePickerWrapper}>
-              {showEndPicker && (
-                <DateTimePicker
-                  value={endDate || startDate || today}
-                  mode='date'
-                  display='default'
-                  minimumDate={startDate || today}
-                  maximumDate={oneYearFromToday}
-                  onChange={(event, date) =>
-                    handleDateChange(event, date, 'end')
-                  }
-                />
-              )}
+            <View style={styles.datePickerContainer}>
+              <View style={styles.datePickerWrapper}>
+                {showStartPicker && (
+                  <DateTimePicker
+                    value={startDate || today}
+                    mode='date'
+                    display='default'
+                    minimumDate={oneYearAgo}
+                    maximumDate={oneYearFromToday}
+                    onChange={(event, date) =>
+                      handleDateChange(event, date, 'start')
+                    }
+                  />
+                )}
+              </View>
+              <View style={styles.datePickerWrapper}>
+                {showEndPicker && (
+                  <DateTimePicker
+                    value={endDate || startDate || today}
+                    mode='date'
+                    display='default'
+                    minimumDate={startDate || today}
+                    maximumDate={oneYearFromToday}
+                    onChange={(event, date) =>
+                      handleDateChange(event, date, 'end')
+                    }
+                  />
+                )}
+              </View>
             </View>
           </View>
         </View>

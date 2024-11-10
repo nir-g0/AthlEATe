@@ -4,7 +4,8 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  FlatList
 } from 'react-native'
 import Slider from '@react-native-community/slider'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -55,7 +56,7 @@ function TimingScreen ({ navigation }) {
   return (
     <DefaultPage title='Meal Timing' navigation={navigation}>
       <View style={styles.container}>
-        <Text style={styles.title}>How many meals do you have per day?</Text>
+        <Text style={styles.title}>How many meals do you want per day?</Text>
         <View style={styles.mealCountContainer}>
           <TouchableOpacity
             onPress={() => adjustMealCount(-1)}
@@ -74,66 +75,70 @@ function TimingScreen ({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.title}>Set time for each meal:</Text>
-        {mealTimes.map((time, index) => (
-          <View key={index} style={styles.mealTimeContainer}>
-            <Text style={styles.mealLabel}>Meal {index + 1}</Text>
-            <TouchableOpacity
-              onPress={() => {
-                if (showPickerIndex === index) {
-                  setShowPickerIndex(-1)
-                } else {
-                  setShowPickerIndex(index)
-                }
+        <Text style={styles.title}>Set the time for each meal:</Text>
+        <ScrollView style={{ minHeight: '43%', maxHeight: '43%' }}>
+          {mealTimes.map((time, index) => (
+            <View
+              key={index}
+              style={{
+                ...styles.mealTimeContainer,
+                borderWidth: 1,
+                padding: 5,
+                borderRadius: 10,
+                borderColor: '#BBBBBB'
               }}
-              style={styles.timeButton}
             >
-              <Text style={styles.timeText}>{formatTime(time)}</Text>
-            </TouchableOpacity>
+              <View style={styles.mealTimeContainer}>
+                <Text style={styles.mealLabel}>Meal {index + 1}</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (showPickerIndex === index) {
+                      setShowPickerIndex(-1)
+                    } else {
+                      setShowPickerIndex(index)
+                    }
+                  }}
+                  style={styles.timeButton}
+                >
+                  <Text style={styles.timeText}>{formatTime(time)}</Text>
+                </TouchableOpacity>
 
-            {showPickerIndex === index && (
-              <DateTimePicker
-                value={time} // Use the specific time for each meal
-                mode='time'
-                display='default'
-                onChange={(event, selectedTime) =>
-                  handleTimeChange(event, selectedTime, index)
-                }
-              />
-            )}
-          </View>
-        ))}
+                {showPickerIndex === index && (
+                  <DateTimePicker
+                    value={time} // Use the specific time for each meal
+                    mode='time'
+                    display='default'
+                    onChange={(event, selectedTime) =>
+                      handleTimeChange(event, selectedTime, index)
+                    }
+                  />
+                )}
+              </View>
+            </View>
+          ))}
+        </ScrollView>
         <View
           style={{
             marginVertical: 20,
-            alignItems: 'center',
-            width: '90%',
-            alignSelf: 'center'
+            alignSelf: 'flex-start'
           }}
         >
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: '500',
-              color: '#000',
-              marginBottom: 5
-            }}
-          >
+          <Text style={{ ...styles.title, alignSelf: 'flex-start' }}>
             Set Your Budget: ${budget.toFixed(2)} per meal
           </Text>
-          <View style={{ minHeight: '30%' }}>
-            <Slider
-              style={{ width: '100%' }}
-              minimumValue={3.5}
-              maximumValue={30}
-              step={0.5}
-              value={budget}
-              onValueChange={value => setBudget(value)}
-              minimumTrackTintColor='red'
-              maximumTrackTintColor='blue'
-              thumbTintColor='#42D951'
-            />
-          </View>
+        </View>
+        <View style={{ minHeight: '10%', alignSelf: 'center' }}>
+          <Slider
+            style={{ width: 200, height: 40 }}
+            minimumValue={3.5}
+            maximumValue={16}
+            step={0.5}
+            value={budget}
+            onValueChange={value => setBudget(value)}
+            minimumTrackTintColor='#CCCCCC'
+            maximumTrackTintColor='#DDDDDC'
+            thumbTintColor='#42D951'
+          />
         </View>
         <View style={styles.saveButtonContainer}>
           <TouchableOpacity style={styles.saveButton}>
