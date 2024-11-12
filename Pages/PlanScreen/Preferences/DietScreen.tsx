@@ -48,7 +48,6 @@ function DietScreen ({ navigation }: { navigation: any }) {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.title}>Select Your Diet Type</Text>
         <DietPicker onSelectionChange={() => {}} />
-
         <GenericPreference
           title={'Allergies'}
           placeholder={'Allergies here...'}
@@ -139,7 +138,7 @@ const styles = StyleSheet.create({
     paddingBottom: height * 0.05
   },
   title: {
-    fontSize: width * 0.05,
+    fontSize: width * 0.04,
     color: '#333',
     fontWeight: '600',
     fontFamily: 'Menlo',

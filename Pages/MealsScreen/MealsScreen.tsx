@@ -13,15 +13,14 @@ import DefaultPage from '../../ConstantStyles/DefaultPage'
 import AppStyles from '../../ConstantStyles/Styles'
 import React, { useEffect, useState } from 'react'
 import MealCard from './MealCard'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const { width, height } = Dimensions.get('window')
 
 function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
   const [selectedDay, setSelectedDay] = useState(0)
-  const [orderedDays, setOrderedDays] = useState<string[]>([])
+  const [orderedDates, setOrderedDates] = useState<Date[]>([])
   const [meals, setMeals] = useState([])
-
-  const daysOfTheWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 
   const mealOptions = [
     { name: 'Chicken Wrap', calories: 420, protein: 25, carbs: 40, fat: 12 },
@@ -30,58 +29,35 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
       calories: 450,
       protein: 30,
       carbs: 20,
-      fat: 15,
-      selected: false
+      fat: 15
     },
-    {
-      name: 'Protein Smoothie',
-      calories: 300,
-      protein: 20,
-      carbs: 35,
-      fat: 5,
-      selected: false
-    },
-    {
-      name: 'Quinoa Bowl',
-      calories: 500,
-      protein: 25,
-      carbs: 50,
-      fat: 10,
-      selected: false
-    },
-    {
-      name: 'Spaghetti Bowl',
-      calories: 800,
-      protein: 25,
-      carbs: 50,
-      fat: 10,
-      selected: false
-    },
+    { name: 'Protein Smoothie', calories: 300, protein: 20, carbs: 35, fat: 5 },
+    { name: 'Quinoa Bowl', calories: 500, protein: 25, carbs: 50, fat: 10 },
+    { name: 'Spaghetti Bowl', calories: 800, protein: 25, carbs: 50, fat: 10 },
     {
       name: 'Salmon & Veggies',
       calories: 480,
       protein: 35,
       carbs: 15,
-      fat: 18,
-      selected: false
+      fat: 18
     },
     {
       name: 'Oatmeal with Berries',
       calories: 350,
       protein: 10,
       carbs: 60,
-      fat: 8,
-      selected: false
+      fat: 8
     }
   ]
 
   useEffect(() => {
-    const today = new Date().getDay()
-    const adjustedDays = [
-      ...daysOfTheWeek.slice(today === 0 ? 6 : today - 1),
-      ...daysOfTheWeek.slice(0, today === 0 ? 6 : today - 1)
-    ]
-    setOrderedDays(adjustedDays)
+    const today = new Date()
+    const dates = Array.from({ length: 7 }, (_, i) => {
+      const date = new Date(today)
+      date.setDate(today.getDate() + i)
+      return date
+    })
+    setOrderedDates(dates)
     generateRandomMeals()
   }, [])
 
@@ -99,47 +75,58 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
     generateRandomMeals()
   }, [selectedDay])
 
-  const handleGenerateDay = lst => {
-    return orderedDays.map((day, index) => (
-      <TouchableOpacity
-        key={day}
-        style={{
-          ...styles.dayBubble,
-          backgroundColor: index === selectedDay ? '#42D951' : '#FFFFFF'
-        }}
-        onPress={() => setSelectedDay(index)}
-      >
-        <Text
+  const handleGenerateDay = () => {
+    return orderedDates.map((date, index) => {
+      const day = date.getDate()
+      const month = date.toLocaleString('default', { month: 'short' })
+      const year = date.getFullYear()
+
+      return (
+        <TouchableOpacity
+          key={index}
           style={{
-            fontSize: width * 0.035, // Responsive font size
-            color: index === selectedDay ? 'white' : 'black',
-            fontFamily: 'Menlo'
+            ...styles.dayBubble,
+            backgroundColor: index === selectedDay ? '#42D951' : '#FFFFFF'
           }}
+          onPress={() => setSelectedDay(index)}
         >
-          {day}
-        </Text>
-      </TouchableOpacity>
-    ))
+          <Text
+            style={{
+              fontSize: width * 0.035,
+              color: index === selectedDay ? 'white' : 'black',
+              fontFamily: 'Menlo'
+            }}
+          >
+            {`${month}`}
+          </Text>
+          <Text
+            style={{
+              fontSize: width * 0.035,
+              color: index === selectedDay ? 'white' : 'black',
+              fontFamily: 'Menlo'
+            }}
+          >
+            {`${day}`}
+          </Text>
+        </TouchableOpacity>
+      )
+    })
   }
 
-  const renderMealCard = ({ item }) => {
-    return (
-      <MealCard
-        title={item.name}
-        calories={item.calories}
-        protein={item.protein}
-        carbs={item.carbs}
-        fat={item.fat}
-      />
-    )
-  }
+  const renderMealCard = ({ item }) => (
+    <MealCard
+      title={item.name}
+      calories={item.calories}
+      protein={item.protein}
+      carbs={item.carbs}
+      fat={item.fat}
+    />
+  )
 
   return (
     <SafeAreaView style={{ ...AppStyles.defaultBackground, flex: 1 }}>
       <DefaultPage navigation={navigation} title='Meals'>
-        <View style={styles.bubbleContainer}>
-          {handleGenerateDay([0, 1, 2, 3, 4, 5, 6])}
-        </View>
+        <View style={styles.bubbleContainer}>{handleGenerateDay()}</View>
         <FlatList
           data={meals}
           renderItem={renderMealCard}
@@ -166,21 +153,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 2 },
-    borderRadius: width * 0.03, // Responsive border radius
+    borderRadius: width * 0.03,
     padding: width * 0.04,
     marginVertical: height * 0.005,
     marginHorizontal: width * 0.01,
     alignItems: 'flex-start'
   },
   mealTitle: {
-    fontSize: width * 0.045, // Responsive font size
+    fontSize: width * 0.045,
     fontWeight: '600',
     color: '#333',
     marginBottom: height * 0.005,
     fontFamily: 'Menlo'
   },
   mealDetails: {
-    fontSize: width * 0.0325, // Responsive font size
+    fontSize: width * 0.0325,
     color: '#666',
     fontFamily: 'Menlo'
   },
@@ -191,16 +178,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: width * 0.05
   },
   dayBubble: {
-    height: width * 0.12,
-    width: width * 0.12,
-    borderRadius: width * 0.04, // Circle
+    height: width * 0.13,
+    width: width * 0.13,
+    borderRadius: width * 0.04,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.25,
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 1 },
-    marginHorizontal: width * 0.01
+    marginHorizontal: width * 0.005
   },
   regenerateButtonContainer: {
     alignItems: 'center',
