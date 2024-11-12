@@ -5,12 +5,14 @@ import {
   StyleSheet,
   FlatList,
   Button,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native'
 import { SafeAreaView } from 'react-native'
 import DefaultPage from '../../ConstantStyles/DefaultPage'
 import AppStyles from '../../ConstantStyles/Styles'
 import React, { useEffect, useState } from 'react'
+import MealCard from './MealCard'
 
 const { width, height } = Dimensions.get('window')
 
@@ -28,24 +30,48 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
       calories: 450,
       protein: 30,
       carbs: 20,
-      fat: 15
+      fat: 15,
+      selected: false
     },
-    { name: 'Protein Smoothie', calories: 300, protein: 20, carbs: 35, fat: 5 },
-    { name: 'Quinoa Bowl', calories: 500, protein: 25, carbs: 50, fat: 10 },
-    { name: 'Spaghetti Bowl', calories: 800, protein: 25, carbs: 50, fat: 10 },
+    {
+      name: 'Protein Smoothie',
+      calories: 300,
+      protein: 20,
+      carbs: 35,
+      fat: 5,
+      selected: false
+    },
+    {
+      name: 'Quinoa Bowl',
+      calories: 500,
+      protein: 25,
+      carbs: 50,
+      fat: 10,
+      selected: false
+    },
+    {
+      name: 'Spaghetti Bowl',
+      calories: 800,
+      protein: 25,
+      carbs: 50,
+      fat: 10,
+      selected: false
+    },
     {
       name: 'Salmon & Veggies',
       calories: 480,
       protein: 35,
       carbs: 15,
-      fat: 18
+      fat: 18,
+      selected: false
     },
     {
       name: 'Oatmeal with Berries',
       calories: 350,
       protein: 10,
       carbs: 60,
-      fat: 8
+      fat: 8,
+      selected: false
     }
   ]
 
@@ -97,15 +123,17 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
     ))
   }
 
-  const renderMealCard = ({ item }) => (
-    <View style={styles.mealCard}>
-      <Text style={styles.mealTitle}>{item.name}</Text>
-      <Text style={styles.mealDetails}>Calories: {item.calories}</Text>
-      <Text style={styles.mealDetails}>
-        Protein: {item.protein}g | Carbs: {item.carbs}g | Fat: {item.fat}g
-      </Text>
-    </View>
-  )
+  const renderMealCard = ({ item }) => {
+    return (
+      <MealCard
+        title={item.name}
+        calories={item.calories}
+        protein={item.protein}
+        carbs={item.carbs}
+        fat={item.fat}
+      />
+    )
+  }
 
   return (
     <SafeAreaView style={{ ...AppStyles.defaultBackground, flex: 1 }}>

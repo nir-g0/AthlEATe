@@ -6,15 +6,18 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  Image
+  Image,
+  Dimensions
 } from 'react-native'
 
+const { width, height } = Dimensions.get('window')
+
 type PickerProps = {
-  title: string // The title to be displayed above the input
-  placeholder: string // Placeholder text for the input
-  buttonText: string // Text for the add button
-  selectedItems: string[] // Initial selected items (optional)
-  onSelectionChange: (items: string[]) => void // Callback to handle selection changes
+  title: string
+  placeholder: string
+  buttonText: string
+  selectedItems: string[]
+  onSelectionChange: (items: string[]) => void
 }
 
 const GeneralPicker = ({
@@ -51,26 +54,30 @@ const GeneralPicker = ({
       <View style={styles.inputRow}>
         <TextInput
           style={styles.input}
-          placeholderTextColor={'#AAAAAA'}
+          placeholderTextColor={'#999'}
           placeholder={placeholder}
           value={text}
           onChangeText={setText}
-          cursorColor={'#000000'}
+          cursorColor={'#42D951'}
         />
         <TouchableOpacity style={styles.addButton} onPress={handleAddItem}>
           <Image
-            style={{ width: 16, height: 16 }}
+            style={styles.addIcon}
             resizeMode='cover'
             source={require('../assets/icons/add.png')}
-          ></Image>
+          />
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.scrollView} horizontal={true}>
+      <ScrollView
+        style={styles.scrollView}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      >
         {selectedPreferences.map(item => (
-          <View style={styles.Bubble} key={item}>
-            <Text style={styles.Text}>{item}</Text>
+          <View style={styles.bubble} key={item}>
+            <Text style={styles.bubbleText}>{item}</Text>
             <TouchableOpacity onPress={() => handleRemoveItem(item)}>
-              <Text style={styles.removeText}> X</Text>
+              <Text style={styles.removeText}> ×</Text>
             </TouchableOpacity>
           </View>
         ))}
@@ -82,66 +89,77 @@ const GeneralPicker = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1.5,
-    paddingBottom: 10
+    paddingBottom: height * 0.02
   },
   title: {
-    color: '#000000',
+    fontSize: width * 0.04,
     fontWeight: '500',
-    fontSize: 16,
-    fontFamily: 'Menlo',
-    alignSelf: 'flex-start',
-    marginVertical: 10
+    color: '#333',
+    marginBottom: height * 0.012,
+    fontFamily: 'Menlo'
   },
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5
+    marginBottom: height * 0.01,
+    backgroundColor: '#f9f9f9',
+    borderRadius: width * 0.02,
+    paddingHorizontal: width * 0.02,
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 }
   },
   input: {
-    height: 'auto',
-    // width: '80%',
     flex: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    borderColor: '#42D951',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginRight: 8
-  },
-  addButton: {
-    flex: 0.2,
-    marginRight: 8,
-    backgroundColor: '#42D951',
-    borderRadius: 18,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  scrollView: {
-    maxHeight: '30%',
-    marginBottom: 0
-  },
-  Bubble: {
-    flexDirection: 'row',
-    marginRight: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    backgroundColor: '#42D951',
-    borderRadius: 18,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  Text: {
-    color: '#FFFFFF',
-    fontWeight: '600',
-    fontSize: 16,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: width * 0.03,
+    fontSize: width * 0.04,
+    color: '#333',
     fontFamily: 'Menlo'
   },
+  addButton: {
+    backgroundColor: '#42D951',
+    borderRadius: width * 0.04,
+    padding: width * 0.025,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: width * 0.02
+  },
+  addIcon: {
+    width: width * 0.04,
+    height: width * 0.04
+  },
+  scrollView: {
+    maxHeight: height * 0.05,
+    marginTop: height * 0.01
+  },
+  bubble: {
+    flexDirection: 'row',
+    marginRight: width * 0.02,
+    flex: 1,
+    paddingHorizontal: width * 0.04,
+    backgroundColor: '#42D951',
+    borderRadius: width * 0.04,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 1 }
+  },
+  bubbleText: {
+    color: '#FFF',
+    fontWeight: '600',
+    fontFamily: 'Menlo',
+    fontSize: width * 0.04,
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
   removeText: {
-    color: '#FFFFFF',
-    marginLeft: 5,
-    fontWeight: '600'
+    color: '#FFF',
+    marginLeft: width * 0.01,
+    fontWeight: '600',
+    fontSize: width * 0.035
   }
 })
 
