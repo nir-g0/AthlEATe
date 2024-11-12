@@ -46,11 +46,12 @@ function PlanScreen ({ navigation }) {
             backgroundColor: '#42D951',
             borderRadius: 10,
             width: '95%',
-            flex: 1.25,
+            flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
             padding: 0,
-            marginBottom: '1%'
+            marginBottom: '1%',
+            ...shadow
           }}
         >
           <Text style={AppStyles.sectionTitle}>Generate Plan</Text>
@@ -60,23 +61,11 @@ function PlanScreen ({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
-  chartContainer: {
-    marginVertical: 10,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#3a7532',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.5,
-    shadowRadius: 6,
-    borderRadius: 10
-  },
-  draggablePoint: {
-    position: 'absolute',
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: 'red'
-  }
-})
+const shadow = {
+  shadowColor: '#000',
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  shadowOffset: { width: 0, height: 2 }
+}
 
 export default PlanScreen

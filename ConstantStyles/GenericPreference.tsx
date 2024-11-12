@@ -77,7 +77,7 @@ const GeneralPicker = ({
           <View style={styles.bubble} key={item}>
             <Text style={styles.bubbleText}>{item}</Text>
             <TouchableOpacity onPress={() => handleRemoveItem(item)}>
-              <Text style={styles.removeText}> ×</Text>
+              <Text style={styles.removeText}> X</Text>
             </TouchableOpacity>
           </View>
         ))}
@@ -89,7 +89,8 @@ const GeneralPicker = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1.5,
-    paddingBottom: height * 0.02
+    paddingBottom: height * 0.02,
+    margin: 5
   },
   title: {
     fontSize: width * 0.04,
@@ -106,9 +107,9 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.02,
     paddingHorizontal: width * 0.02,
     shadowColor: '#000',
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.15,
     shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 }
+    shadowOffset: { width: 0, height: 0 }
   },
   input: {
     flex: 1,
@@ -136,14 +137,15 @@ const styles = StyleSheet.create({
   },
   bubble: {
     flexDirection: 'row',
-    marginRight: width * 0.02,
+    // marginRight: width * 0.02,
+    margin: width * 0.02,
     flex: 1,
     paddingHorizontal: width * 0.04,
     backgroundColor: '#42D951',
     borderRadius: width * 0.04,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 1 }
   },

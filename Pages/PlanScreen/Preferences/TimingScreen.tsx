@@ -5,12 +5,15 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native'
 import Slider from '@react-native-community/slider'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import DefaultPage from '../../../ConstantStyles/DefaultPage'
 import AppStyles from '../../../ConstantStyles/Styles'
+
+const { width, height } = Dimensions.get('window')
 
 function TimingScreen ({ navigation }) {
   const [budget, setBudget] = useState(3)
@@ -81,11 +84,10 @@ function TimingScreen ({ navigation }) {
             <View
               key={index}
               style={{
-                ...styles.mealTimeContainer,
-                borderWidth: 1,
-                padding: 5,
-                borderRadius: 10,
-                borderColor: '#BBBBBB'
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingHorizontal: width * 0.04,
+                borderRadius: width * 0.03
               }}
             >
               <View style={styles.mealTimeContainer}>
@@ -158,12 +160,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    color: '#000000',
+    fontSize: width * 0.04,
     fontWeight: '500',
-    fontSize: 16,
+    color: '#333',
+    marginBottom: height * 0.012,
     fontFamily: 'Menlo',
-    alignSelf: 'flex-start',
-    marginVertical: 10
+    alignSelf: 'flex-start'
   },
   mealCountContainer: {
     flexDirection: 'row',
@@ -177,7 +179,11 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     paddingVertical: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 }
   },
   grayBubble: {
     backgroundColor: '#BBBBBB'
@@ -190,14 +196,21 @@ const styles = StyleSheet.create({
   mealTimeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 8,
-    width: '100%'
+    backgroundColor: '#f9f9f9',
+    paddingVertical: height * 0.015,
+    paddingHorizontal: width * 0.04,
+    borderRadius: width * 0.03,
+    shadowColor: '#000000',
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    marginBottom: height * 0.02
   },
   mealLabel: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333333',
-    fontWeight: '500'
+    fontSize: width * 0.04,
+    color: '#333',
+    fontFamily: 'Menlo',
+    flex: 1
   },
   timeButton: {
     flex: 1,
@@ -214,7 +227,11 @@ const styles = StyleSheet.create({
   },
   saveButtonContainer: {
     minWidth: '100%',
-    marginVertical: 20
+    marginVertical: 20,
+    shadowColor: '#000000',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 }
   },
   saveButton: {
     backgroundColor: '#42D951',

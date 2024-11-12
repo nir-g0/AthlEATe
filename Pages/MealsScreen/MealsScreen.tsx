@@ -105,7 +105,7 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
         key={day}
         style={{
           ...styles.dayBubble,
-          backgroundColor: index === selectedDay ? '#42D951' : '#F0F0F0'
+          backgroundColor: index === selectedDay ? '#42D951' : '#FFFFFF'
         }}
         onPress={() => setSelectedDay(index)}
       >
@@ -113,7 +113,6 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
           style={{
             fontSize: width * 0.035, // Responsive font size
             color: index === selectedDay ? 'white' : 'black',
-            fontWeight: '600',
             fontFamily: 'Menlo'
           }}
         >

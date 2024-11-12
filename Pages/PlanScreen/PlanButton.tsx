@@ -8,15 +8,17 @@ function PlanButton ({ title, press = () => {} }) {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 0,
-        marginBottom: '1%',
-        borderTopColor: '#AAAAAA',
-        borderTopWidth: 1
+        padding: 5,
+        marginBottom: '2%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        ...shadow
       }}
     >
       <View style={{ flex: 0.95 }}>
         <Text
           style={{
+            marginLeft: '2.5%',
             color: '#000000',
             fontWeight: '400',
             fontSize: 16,
@@ -42,4 +44,10 @@ function PlanButton ({ title, press = () => {} }) {
   )
 }
 
+const shadow = {
+  shadowColor: '#000',
+  shadowOpacity: 0.15,
+  shadowRadius: 3,
+  shadowOffset: { width: 0, height: 0 }
+}
 export default PlanButton

@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Dimensions
+} from 'react-native'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import DefaultPage from '../../../ConstantStyles/DefaultPage'
 import GenericPreference from '../../../ConstantStyles/GenericPreference'
 import AppStyles from '../../../ConstantStyles/Styles'
+
+const { width, height } = Dimensions.get('window')
 
 function SportScreen ({ navigation }) {
   const [practiceCount, setPracticeCount] = useState(0)
@@ -47,99 +56,93 @@ function SportScreen ({ navigation }) {
 
   return (
     <DefaultPage title='Sport Specifics' navigation={navigation}>
-      <View style={styles.container}>
-        <GenericPreference
-          title='What sports do you play?'
-          placeholder='Add here...'
-          buttonText='Add'
-          selectedItems={[]}
-          onSelectionChange={item => console.log(item)}
-        />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.section}>
+          <GenericPreference
+            title='What sports do you play?'
+            placeholder='Add here...'
+            buttonText='Add'
+            selectedItems={[]}
+            onSelectionChange={item => console.log(item)}
+          />
+        </View>
 
-        <GenericPreference
-          title='Add your event(s) or position(s):'
-          placeholder='Add here...'
-          buttonText='Add'
-          selectedItems={[]}
-          onSelectionChange={item => console.log(item)}
-        />
-
-        <View style={styles.spacer} />
-
-        {/* Season Duration Section */}
-        <View>
+        <View style={styles.section}>
+          <GenericPreference
+            title='Add your event(s) or position(s):'
+            placeholder='Add here...'
+            buttonText='Add'
+            selectedItems={[]}
+            onSelectionChange={item => console.log(item)}
+          />
+        </View>
+        <View style={styles.section}>
           <Text style={styles.title}>How long is your season?</Text>
-          <View style={{ minHeight: '20%' }}>
-            <View style={styles.dateButtonContainer}>
-              <TouchableOpacity
-                onPress={() => setShowStartPicker(!showStartPicker)}
-                style={styles.dateButton}
-              >
-                <Text style={styles.dateText}>
-                  From: {formatMonthYear(startDate)}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => setShowEndPicker(!showEndPicker)}
-                style={styles.dateButton}
-              >
-                <Text style={styles.dateText}>
-                  To: {formatMonthYear(endDate)}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.datePickerContainer}>
-              <View style={styles.datePickerWrapper}>
-                {showStartPicker && (
-                  <DateTimePicker
-                    value={startDate || today}
-                    mode='date'
-                    display='default'
-                    minimumDate={oneYearAgo}
-                    maximumDate={oneYearFromToday}
-                    onChange={(event, date) =>
-                      handleDateChange(event, date, 'start')
-                    }
-                  />
-                )}
-              </View>
-              <View style={styles.datePickerWrapper}>
-                {showEndPicker && (
-                  <DateTimePicker
-                    value={endDate || startDate || today}
-                    mode='date'
-                    display='default'
-                    minimumDate={startDate || today}
-                    maximumDate={oneYearFromToday}
-                    onChange={(event, date) =>
-                      handleDateChange(event, date, 'end')
-                    }
-                  />
-                )}
-              </View>
-            </View>
+          <View style={styles.dateButtonContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                showEndPicker ? setShowEndPicker(false) : null
+                setShowStartPicker(!showStartPicker)
+              }}
+              style={styles.dateButton}
+            >
+              <Text style={styles.dateText}>From:</Text>
+              <Text style={styles.dateText}>{formatMonthYear(startDate)}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                showStartPicker ? setShowStartPicker(false) : null
+                setShowEndPicker(!showEndPicker)
+              }}
+              style={styles.dateButton}
+            >
+              <Text style={styles.dateText}>To:</Text>
+              <Text style={styles.dateText}>{formatMonthYear(endDate)}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.datePickerContainer}>
+            {showStartPicker && (
+              <DateTimePicker
+                value={startDate || today}
+                mode='date'
+                display='default'
+                minimumDate={oneYearAgo}
+                maximumDate={oneYearFromToday}
+                onChange={(event, date) =>
+                  handleDateChange(event, date, 'start')
+                }
+              />
+            )}
+            {showEndPicker && (
+              <DateTimePicker
+                value={endDate || startDate || today}
+                mode='date'
+                display='default'
+                minimumDate={startDate || today}
+                maximumDate={oneYearFromToday}
+                onChange={(event, date) => handleDateChange(event, date, 'end')}
+              />
+            )}
           </View>
         </View>
 
-        <View style={styles.spacer} />
-
         {/* Practice Count Section */}
-        <View>
+        <View style={styles.section}>
           <Text style={styles.title}>
             How many hours per week do you practice?
           </Text>
           <View style={styles.practiceCountContainer}>
             <TouchableOpacity
               onPress={() => {
-                if (practiceCount < 64) setPracticeCount(practiceCount + 1)
+                if (practiceCount < 40) setPracticeCount(practiceCount + 1)
               }}
               style={[styles.bubble, styles.grayBubble]}
             >
               <Text style={styles.plusMinusText}>+</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.bubble}>
+            <View style={[styles.bubble, styles.countBubble]}>
               <Text style={styles.plusMinusText}>{practiceCount}</Text>
-            </TouchableOpacity>
+            </View>
             <TouchableOpacity
               onPress={() => {
                 if (practiceCount > 0) setPracticeCount(practiceCount - 1)
@@ -151,105 +154,106 @@ function SportScreen ({ navigation }) {
           </View>
         </View>
 
-        <View style={styles.spacer} />
-
+        {/* Save Button */}
         <View style={styles.saveButtonContainer}>
           <TouchableOpacity style={styles.saveButton}>
-            <Text style={AppStyles.sectionTitle}>Save</Text>
+            <Text style={styles.saveButtonText}>Save</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.bottomSpacer} />
-      </View>
+      </ScrollView>
     </DefaultPage>
   )
 }
 
+const shadow = {
+  shadowColor: '#000',
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  shadowOffset: { width: 0, height: 2 }
+}
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: '5%',
-    alignContent: 'center',
-    marginTop: '1%',
-    flex: 1,
-    width: '90%',
-    justifyContent: 'center'
+  scrollContainer: {
+    paddingHorizontal: width * 0.02,
+    paddingVertical: height * 0.03
   },
-  spacer: {
-    flex: 0.45
-  },
-  bottomSpacer: {
-    flex: 0.15
+  section: {
+    marginBottom: height * 0.03
   },
   title: {
-    color: '#000000',
-    fontWeight: '500',
-    fontSize: 16,
+    fontSize: width * 0.04,
+    color: '#333',
+    fontWeight: '600',
     fontFamily: 'Menlo',
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    marginBottom: height * 0.02
   },
   dateButtonContainer: {
     flexDirection: 'row',
-    alignSelf: 'center',
-    marginVertical: 10
+    justifyContent: 'space-between',
+    marginVertical: height * 0.01,
+    ...shadow
   },
   dateButton: {
     flex: 1,
-    margin: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    marginHorizontal: width * 0.015,
+    paddingVertical: height * 0.015,
     backgroundColor: '#42D951',
-    borderRadius: 10,
+    borderRadius: width * 0.03,
     justifyContent: 'center',
     alignItems: 'center'
   },
   dateText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold'
+    color: '#FFF',
+    fontWeight: '600',
+    fontSize: width * 0.04
   },
   datePickerContainer: {
     flexDirection: 'row',
-    alignSelf: 'center'
-  },
-  datePickerWrapper: {
-    flex: 1,
-    alignItems: 'center'
+    justifyContent: 'space-around',
+    marginVertical: height * 0.01
   },
   practiceCountContainer: {
-    alignSelf: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   bubble: {
-    width: '25%',
-    marginRight: 8,
-    marginVertical: 5,
-    backgroundColor: '#42D951',
-    borderRadius: 18,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
+    width: width * 0.15,
+    height: width * 0.15,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center'
+    borderRadius: width * 0.075,
+    marginHorizontal: width * 0.015,
+    ...shadow
   },
   grayBubble: {
     backgroundColor: '#BBBBBB'
   },
+  countBubble: {
+    backgroundColor: '#42D951'
+  },
   plusMinusText: {
-    fontSize: 24,
+    fontSize: width * 0.06,
     fontWeight: 'bold',
-    color: '#FFFFFF'
+    color: '#FFF'
   },
   saveButtonContainer: {
-    flex: 1
+    alignItems: 'center',
+    marginTop: height * 0.03
   },
   saveButton: {
     backgroundColor: '#42D951',
-    borderRadius: 10,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'space-evenly',
-    alignSelf: 'center',
-    paddingHorizontal: 30,
-    margin: 5
+    borderRadius: width * 0.05,
+    paddingVertical: height * 0.02,
+    paddingHorizontal: width * 0.4,
+    alignItems: 'center',
+    ...shadow
+  },
+  saveButtonText: {
+    color: '#FFF',
+    fontSize: width * 0.045,
+    fontWeight: '700',
+    fontFamily: 'Menlo'
   }
 })
 

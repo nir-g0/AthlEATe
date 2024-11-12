@@ -149,14 +149,14 @@ const styles = StyleSheet.create({
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#FFFFFF',
     paddingVertical: height * 0.015,
     paddingHorizontal: width * 0.04,
     borderRadius: width * 0.03,
     shadowColor: '#000000',
     shadowOpacity: 0.15,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 0 },
     marginBottom: height * 0.02
   },
   inputLabel: {
@@ -183,7 +183,6 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.02,
     alignItems: 'center',
     marginTop: height * 0.02,
-    shadowColor: '#42D951',
     shadowOpacity: 0.4,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 5 }
