@@ -3,14 +3,13 @@ import {
   SafeAreaView,
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   Dimensions,
   ScrollView
 } from 'react-native'
-import DefaultPage from '../ConstantStyles/DefaultPage'
-import AppStyles from '../ConstantStyles/Styles'
 import { LineChart } from 'react-native-chart-kit'
+import AppStyles from '../styles/Styles'
+import DefaultPage from '../components/generics/DefaultPage'
 
 const { width, height } = Dimensions.get('window')
 

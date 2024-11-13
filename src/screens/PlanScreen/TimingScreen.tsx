@@ -10,8 +10,11 @@ import {
 } from 'react-native'
 import Slider from '@react-native-community/slider'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import DefaultPage from '../../../ConstantStyles/DefaultPage'
-import AppStyles from '../../../ConstantStyles/Styles'
+import DefaultPage from '../../components/generics/DefaultPage'
+import AppStyles from '../../styles/Styles'
+import fonts from '../../styles/fonts'
+import compStyles from '../../styles/compStyles'
+import Spacer from '../../components/generics/Spacer'
 
 const { width, height } = Dimensions.get('window')
 
@@ -58,28 +61,30 @@ function TimingScreen ({ navigation }) {
 
   return (
     <DefaultPage title='Meal Timing' navigation={navigation}>
-      <View style={styles.container}>
-        <Text style={styles.title}>How many meals do you want per day?</Text>
-        <View style={styles.mealCountContainer}>
+      <ScrollView>
+        <Text style={fonts.heading2}>How many meals do you want per day?</Text>
+        <View style={{ ...compStyles.whiteContainer, flexDirection: 'row' }}>
           <TouchableOpacity
             onPress={() => adjustMealCount(-1)}
-            style={[styles.bubble, styles.grayBubble]}
+            style={[compStyles.circle, styles.grayBubble]}
           >
-            <Text style={styles.plusMinusText}>-</Text>
+            <Text style={fonts.whiteTextBold}>-</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.bubble}>
-            <Text style={styles.plusMinusText}>{mealCount}</Text>
+          <TouchableOpacity
+            style={[compStyles.circle, compStyles.themeBrightGreen]}
+          >
+            <Text style={fonts.whiteTextBold}>{mealCount}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => adjustMealCount(1)}
-            style={[styles.bubble, styles.grayBubble]}
+            style={[compStyles.circle, styles.grayBubble]}
           >
-            <Text style={styles.plusMinusText}>+</Text>
+            <Text style={fonts.whiteTextBold}>+</Text>
           </TouchableOpacity>
         </View>
-
-        <Text style={styles.title}>Set the time for each meal:</Text>
-        <ScrollView style={{ minHeight: '43%', maxHeight: '43%' }}>
+        <Spacer />
+        <Text style={fonts.heading2}>Set the time for each meal:</Text>
+        <View>
           {mealTimes.map((time, index) => (
             <View
               key={index}
@@ -91,7 +96,7 @@ function TimingScreen ({ navigation }) {
               }}
             >
               <View style={styles.mealTimeContainer}>
-                <Text style={styles.mealLabel}>Meal {index + 1}</Text>
+                <Text style={fonts.greyText}>Meal {index + 1}</Text>
                 <TouchableOpacity
                   onPress={() => {
                     if (showPickerIndex === index) {
@@ -102,7 +107,7 @@ function TimingScreen ({ navigation }) {
                   }}
                   style={styles.timeButton}
                 >
-                  <Text style={styles.timeText}>{formatTime(time)}</Text>
+                  <Text style={fonts.whiteText}>{formatTime(time)}</Text>
                 </TouchableOpacity>
 
                 {showPickerIndex === index && (
@@ -118,18 +123,12 @@ function TimingScreen ({ navigation }) {
               </View>
             </View>
           ))}
-        </ScrollView>
-        <View
-          style={{
-            marginVertical: 20,
-            alignSelf: 'flex-start'
-          }}
-        >
-          <Text style={{ ...styles.title, alignSelf: 'flex-start' }}>
-            Set Your Budget: ${budget.toFixed(2)} per meal
-          </Text>
         </View>
-        <View style={{ minHeight: '10%', alignSelf: 'center' }}>
+        <Spacer />
+        <Text style={fonts.heading2}>
+          Set Your Budget: ${budget.toFixed(2)} per meal
+        </Text>
+        <View style={compStyles.whiteContainer}>
           <Slider
             style={{ width: 200, height: 40 }}
             minimumValue={3.5}
@@ -142,23 +141,16 @@ function TimingScreen ({ navigation }) {
             thumbTintColor='#42D951'
           />
         </View>
-        <View style={styles.saveButtonContainer}>
-          <TouchableOpacity style={styles.saveButton}>
-            <Text style={AppStyles.sectionTitle}>Save</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+        <Spacer />
+        <TouchableOpacity style={compStyles.bottomGreenButton}>
+          <Text style={fonts.whiteTextBold}>Save</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </DefaultPage>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: '5%',
-    marginTop: '1%',
-    width: '90%',
-    alignItems: 'center'
-  },
   title: {
     fontSize: width * 0.04,
     fontWeight: '500',
@@ -169,8 +161,7 @@ const styles = StyleSheet.create({
   },
   mealCountContainer: {
     flexDirection: 'row',
-    alignSelf: 'center',
-    marginVertical: 15
+    alignSelf: 'center'
   },
   bubble: {
     width: 50,
@@ -194,17 +185,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   mealTimeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-    paddingVertical: height * 0.015,
-    paddingHorizontal: width * 0.04,
-    borderRadius: width * 0.03,
-    shadowColor: '#000000',
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    marginBottom: height * 0.02
+    ...compStyles.whiteContainer,
+    flexDirection: 'row'
   },
   mealLabel: {
     fontSize: width * 0.04,

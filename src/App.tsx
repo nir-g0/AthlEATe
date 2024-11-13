@@ -1,20 +1,14 @@
-/**
- * Icons from: <a href="https://www.flaticon.com/free-icons/planning" title="planning icons">Planning icons created by Freepik - Flaticon</a>
- * <a href="https://www.flaticon.com/free-icons/progress" title="progress icons">Progress icons created by lalawidi - Flaticon</a>
- * <a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by HJ Studio - Flaticon</a>
- */
-
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from './Pages/HomeScreen'
-import PlanScreen from './Pages/PlanScreen/PlanScreen'
-import TrackScreen from './Pages/TrackScreen'
-import MealsScreen from './Pages/MealsScreen/MealsScreen'
-import ScanScreen from './Pages/ScanScreen'
-import DefaultTitle from './ConstantStyles/DefaultTitle'
-import Diet from './Pages/PlanScreen/Preferences/DietScreen'
-import TimingScreen from './Pages/PlanScreen/Preferences/TimingScreen'
-import SportScreen from './Pages/PlanScreen/Preferences/SportScreen'
+import HomeScreen from './screens/HomeScreen.tsx'
+import PlanScreen from './screens/PlanScreen/PlanScreen.tsx'
+import TrackScreen from './screens/TrackScreen.tsx'
+import MealsScreen from './screens/MealsScreen.tsx'
+import ScanScreen from './screens/ScanScreen.tsx'
+import DefaultTitle from './components/generics/DefaultTitle.tsx'
+import Diet from './screens/PlanScreen/DietScreen.tsx'
+import TimingScreen from './screens/PlanScreen/TimingScreen.tsx'
+import SportScreen from './screens/PlanScreen/SportScreen.tsx'
 
 const Stack = createNativeStackNavigator()
 

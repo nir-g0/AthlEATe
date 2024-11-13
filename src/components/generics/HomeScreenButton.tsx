@@ -1,5 +1,7 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import AppStyles from './Styles'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
+import AppStyles from '../../styles/Styles'
+import fonts from '../../styles/fonts'
+import compStyles from '../../styles/compStyles'
 
 function HomeScreenButtom ({
   title,
@@ -10,20 +12,14 @@ function HomeScreenButtom ({
   return (
     <TouchableOpacity
       style={{
-        backgroundColor: '#42D951', //'#69e05a',
-        shadowColor: '#000000',
-        shadowOffset: {
-          width: 0,
-          height: 4
-        },
-        shadowOpacity: 0.35,
-        shadowRadius: 3,
+        backgroundColor: '#42D951',
         flex: 1,
         borderRadius: 10,
         margin: '2.5%',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 0
+        padding: 0,
+        ...compStyles.shadow
       }}
       onPress={press}
     >
@@ -34,7 +30,7 @@ function HomeScreenButtom ({
             style={{ width: 80, height: 80 }}
             resizeMode='cover'
           />
-          <Text style={AppStyles.sectionTitle}>{title}</Text>
+          <Text style={fonts.whiteTextBold}>{title}</Text>
         </View>
       </View>
     </TouchableOpacity>

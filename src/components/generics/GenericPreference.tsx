@@ -9,6 +9,8 @@ import {
   Image,
   Dimensions
 } from 'react-native'
+import fonts from '../../styles/fonts'
+import compStyles from '../../styles/compStyles'
 
 const { width, height } = Dimensions.get('window')
 
@@ -23,7 +25,6 @@ type PickerProps = {
 const GeneralPicker = ({
   title,
   placeholder,
-  buttonText,
   selectedItems = [],
   onSelectionChange
 }: PickerProps) => {
@@ -49,8 +50,8 @@ const GeneralPicker = ({
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+    <View>
+      <Text style={fonts.heading2}>{title}</Text>
       <View style={styles.inputRow}>
         <TextInput
           style={styles.input}
@@ -60,11 +61,14 @@ const GeneralPicker = ({
           onChangeText={setText}
           cursorColor={'#42D951'}
         />
-        <TouchableOpacity style={styles.addButton} onPress={handleAddItem}>
+        <TouchableOpacity
+          style={[compStyles.circle, compStyles.themeBrightGreen]}
+          onPress={handleAddItem}
+        >
           <Image
             style={styles.addIcon}
             resizeMode='cover'
-            source={require('../assets/icons/add.png')}
+            source={require('../../../assets/icons/add.png')}
           />
         </TouchableOpacity>
       </View>
@@ -74,10 +78,17 @@ const GeneralPicker = ({
         showsHorizontalScrollIndicator={false}
       >
         {selectedPreferences.map(item => (
-          <View style={styles.bubble} key={item}>
-            <Text style={styles.bubbleText}>{item}</Text>
+          <View
+            style={[
+              compStyles.bubble,
+              compStyles.themeBrightGreen,
+              { flexDirection: 'row' }
+            ]}
+            key={item}
+          >
+            <Text style={fonts.whiteText}>{item}</Text>
             <TouchableOpacity onPress={() => handleRemoveItem(item)}>
-              <Text style={styles.removeText}> X</Text>
+              <Text style={fonts.whiteText}> X</Text>
             </TouchableOpacity>
           </View>
         ))}
@@ -87,45 +98,17 @@ const GeneralPicker = ({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1.5,
-    paddingBottom: height * 0.02,
-    margin: 5
-  },
-  title: {
-    fontSize: width * 0.04,
-    fontWeight: '500',
-    color: '#333',
-    marginBottom: height * 0.012,
-    fontFamily: 'Menlo'
-  },
   inputRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: height * 0.01,
-    backgroundColor: '#f9f9f9',
-    borderRadius: width * 0.02,
-    paddingHorizontal: width * 0.02,
-    shadowColor: '#000',
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 0 }
+    alignItems: 'center'
   },
   input: {
-    flex: 1,
-    paddingVertical: height * 0.015,
-    paddingHorizontal: width * 0.03,
-    fontSize: width * 0.04,
-    color: '#333',
-    fontFamily: 'Menlo'
+    ...compStyles.whiteContainer,
+    flexDirection: 'row',
+    flex: 1
   },
   addButton: {
-    backgroundColor: '#42D951',
-    borderRadius: width * 0.04,
-    padding: width * 0.025,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: width * 0.02
+    backgroundColor: '#42D951'
   },
   addIcon: {
     width: width * 0.04,
@@ -135,20 +118,7 @@ const styles = StyleSheet.create({
     maxHeight: height * 0.05,
     marginTop: height * 0.01
   },
-  bubble: {
-    flexDirection: 'row',
-    // marginRight: width * 0.02,
-    margin: width * 0.02,
-    flex: 1,
-    paddingHorizontal: width * 0.04,
-    backgroundColor: '#42D951',
-    borderRadius: width * 0.04,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 1 }
-  },
+
   bubbleText: {
     color: '#FFF',
     fontWeight: '600',
