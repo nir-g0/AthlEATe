@@ -11,6 +11,7 @@ import DefaultPage from '../../components/generics/DefaultPage'
 import PlanButton from '../../components/PlanButton'
 import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
+import Spacer from '../../components/generics/Spacer'
 
 function PlanScreen ({ navigation }) {
   return (

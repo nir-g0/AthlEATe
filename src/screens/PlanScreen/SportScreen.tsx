@@ -59,7 +59,7 @@ function SportScreen ({ navigation }) {
 
   return (
     <DefaultPage title='Sport Specifics' navigation={navigation}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <GenericPreference
           title='What sports do you play?'
           placeholder='Add here...'
@@ -152,6 +152,7 @@ function SportScreen ({ navigation }) {
         <TouchableOpacity style={compStyles.bottomGreenButton}>
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>
+        <Spacer />
       </ScrollView>
     </DefaultPage>
   )

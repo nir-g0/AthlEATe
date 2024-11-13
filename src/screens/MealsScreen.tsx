@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react'
 import MealCard from '../components/MealCard'
 import fonts from '../styles/fonts'
 import compStyles from '../styles/compStyles'
+import Spacer from '../components/generics/Spacer'
 
 const { width, height } = Dimensions.get('window')
 
@@ -130,13 +131,13 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
         renderItem={renderMealCard}
         keyExtractor={item => item.id}
       />
-      <View style={styles.regenerateButtonContainer}>
-        <Button
-          title={'Regenerate'}
-          onPress={generateRandomMeals}
-          color='#007AFF'
-        />
-      </View>
+      <TouchableOpacity
+        style={[compStyles.whiteContainer, compStyles.themeBrightGreen]}
+        onPress={generateRandomMeals}
+      >
+        <Text style={fonts.whiteText}>Regenerate</Text>
+      </TouchableOpacity>
+      <Spacer />
     </DefaultPage>
   )
 }

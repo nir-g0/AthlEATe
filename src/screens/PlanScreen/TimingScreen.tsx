@@ -5,13 +5,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  FlatList,
   Dimensions
 } from 'react-native'
 import Slider from '@react-native-community/slider'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import DefaultPage from '../../components/generics/DefaultPage'
-import AppStyles from '../../styles/Styles'
 import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
@@ -23,7 +21,7 @@ function TimingScreen ({ navigation }) {
   const [mealCount, setMealCount] = useState(3) // Default 3 meals per day
   const [mealTimes, setMealTimes] = useState(
     Array.from({ length: 3 }, () => new Date())
-  ) // Initialize with current times
+  )
   const [showPickerIndex, setShowPickerIndex] = useState(-1) // Track which meal time picker is open
 
   const handleTimeChange = (event, selectedTime, index) => {
@@ -43,7 +41,6 @@ function TimingScreen ({ navigation }) {
   const adjustMealCount = change => {
     const newCount = mealCount + change
     if (newCount >= 1 && newCount <= 8) {
-      // Limit to 1-8 meals per day
       setMealCount(newCount)
       setMealTimes(prevTimes => {
         const updatedTimes = [...prevTimes]
@@ -61,7 +58,7 @@ function TimingScreen ({ navigation }) {
 
   return (
     <DefaultPage title='Meal Timing' navigation={navigation}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={fonts.heading2}>How many meals do you want per day?</Text>
         <View style={{ ...compStyles.whiteContainer, flexDirection: 'row' }}>
           <TouchableOpacity
@@ -145,6 +142,7 @@ function TimingScreen ({ navigation }) {
         <TouchableOpacity style={compStyles.bottomGreenButton}>
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>
+        <Spacer />
       </ScrollView>
     </DefaultPage>
   )

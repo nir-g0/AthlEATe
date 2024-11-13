@@ -27,7 +27,7 @@ function DietScreen ({ navigation }: { navigation: any }) {
 
   return (
     <DefaultPage title={'Diet Preferences'} navigation={navigation}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={fonts.heading2}>Select Your Diet Type</Text>
         <DietPicker onSelectionChange={() => {}} />
         <Spacer />
@@ -48,10 +48,10 @@ function DietScreen ({ navigation }: { navigation: any }) {
           onSelectionChange={item => console.log(item)}
         />
         <Spacer />
-        <View style={styles.inputRow}>
+        <View style={compStyles.rowWhiteContainer}>
           <Text style={fonts.heading2}>Current Weight (lbs):</Text>
           <TextInput
-            style={styles.input}
+            style={inputStyle} // Set font size to prevent dynamic resizing}}}
             placeholderTextColor={'#999'}
             placeholder={'0'}
             inputMode='numeric'
@@ -61,10 +61,10 @@ function DietScreen ({ navigation }: { navigation: any }) {
             cursorColor={'#42D951'}
           />
         </View>
-        <View style={styles.inputRow}>
+        <View style={compStyles.rowWhiteContainer}>
           <Text style={fonts.heading2}>Goal Weight (lbs):</Text>
           <TextInput
-            style={styles.input}
+            style={inputStyle}
             placeholderTextColor={'#999'}
             placeholder={'0'}
             inputMode='numeric'
@@ -74,10 +74,10 @@ function DietScreen ({ navigation }: { navigation: any }) {
             cursorColor={'#42D951'}
           />
         </View>
-        <View style={styles.inputRow}>
+        <View style={compStyles.rowWhiteContainer}>
           <Text style={fonts.heading2}>Daily Caloric Goal:</Text>
           <TextInput
-            style={styles.input}
+            style={inputStyle}
             placeholderTextColor={'#999'}
             placeholder={'0'}
             inputMode='numeric'
@@ -87,10 +87,10 @@ function DietScreen ({ navigation }: { navigation: any }) {
             cursorColor={'#42D951'}
           />
         </View>
-        <View style={styles.inputRow}>
+        <View style={compStyles.rowWhiteContainer}>
           <Text style={fonts.heading2}>Daily Hydration Goal (oz):</Text>
           <TextInput
-            style={styles.input}
+            style={inputStyle}
             placeholderTextColor={'#999'}
             placeholder={'0'}
             inputMode='numeric'
@@ -105,26 +105,16 @@ function DietScreen ({ navigation }: { navigation: any }) {
         <TouchableOpacity style={compStyles.bottomGreenButton}>
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>
+        <Spacer />
       </ScrollView>
     </DefaultPage>
   )
 }
 
-const styles = StyleSheet.create({
-  inputRow: {
-    ...compStyles.whiteContainer,
-    flexDirection: 'row'
-  },
-  input: {
-    height: height * 0.05,
-    width: width * 0.2,
-    paddingHorizontal: width * 0.03,
-    borderColor: '#42D951',
-    borderWidth: 1,
-    borderRadius: width * 0.02,
-    textAlign: 'center',
-    ...fonts.greyTextSmall
-  }
-})
+const inputStyle = {
+  ...compStyles.whiteContainer,
+  ...fonts.greyTextSmall,
+  width: width / 6
+}
 
 export default DietScreen
