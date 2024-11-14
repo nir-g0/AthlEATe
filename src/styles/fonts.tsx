@@ -15,8 +15,7 @@ export default StyleSheet.create({
     marginVertical: height * 0.012,
     marginLeft: width * 0.02,
     fontFamily: appFont,
-    flex: 1,
-    alignSelf: 'flex-start'
+    flex: 1
   },
   greyText: {
     fontSize: width * 0.04,
@@ -33,7 +32,7 @@ export default StyleSheet.create({
   text: { fontSize: width * 0.04, fontFamily: appFont, alignSelf: 'center' },
   whiteText: {
     color: 'white',
-    fontSize: width * 0.042,
+    fontSize: width * 0.05,
     fontFamily: appFont,
     marginTop: 3,
     alignSelf: 'center'

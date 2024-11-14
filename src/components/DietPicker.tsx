@@ -56,7 +56,9 @@ function DietPicker ({
               }
             ]}
           />
-          <Text style={{ ...fonts.greyText, marginLeft: '5%' }}>{type}</Text>
+          <Text style={{ ...fonts.flex, ...fonts.greyText, marginLeft: '5%' }}>
+            {type}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>

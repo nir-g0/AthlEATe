@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
   Dimensions
 } from 'react-native'
@@ -14,7 +13,7 @@ import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 function TimingScreen ({ navigation }) {
   const [budget, setBudget] = useState(3)
@@ -60,10 +59,10 @@ function TimingScreen ({ navigation }) {
     <DefaultPage title='Meal Timing' navigation={navigation}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={fonts.heading2}>How many meals do you want per day?</Text>
-        <View style={{ ...compStyles.whiteContainer, flexDirection: 'row' }}>
+        <View style={compStyles.rowWhiteContainer}>
           <TouchableOpacity
             onPress={() => adjustMealCount(-1)}
-            style={[compStyles.circle, styles.grayBubble]}
+            style={[compStyles.circle, compStyles.themeGrey]}
           >
             <Text style={fonts.whiteTextBold}>-</Text>
           </TouchableOpacity>
@@ -74,7 +73,7 @@ function TimingScreen ({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => adjustMealCount(1)}
-            style={[compStyles.circle, styles.grayBubble]}
+            style={[compStyles.circle, compStyles.themeGrey]}
           >
             <Text style={fonts.whiteTextBold}>+</Text>
           </TouchableOpacity>
@@ -87,12 +86,11 @@ function TimingScreen ({ navigation }) {
               key={index}
               style={{
                 flexDirection: 'row',
-                alignItems: 'center',
                 paddingHorizontal: width * 0.04,
                 borderRadius: width * 0.03
               }}
             >
-              <View style={styles.mealTimeContainer}>
+              <View style={[compStyles.rowWhiteContainer, compStyles.shadow]}>
                 <Text style={fonts.greyText}>Meal {index + 1}</Text>
                 <TouchableOpacity
                   onPress={() => {
@@ -102,7 +100,7 @@ function TimingScreen ({ navigation }) {
                       setShowPickerIndex(index)
                     }
                   }}
-                  style={styles.timeButton}
+                  style={[compStyles.bubble, compStyles.themeBrightGreen]}
                 >
                   <Text style={fonts.whiteText}>{formatTime(time)}</Text>
                 </TouchableOpacity>
@@ -147,79 +145,5 @@ function TimingScreen ({ navigation }) {
     </DefaultPage>
   )
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: width * 0.04,
-    fontWeight: '500',
-    color: '#333',
-    marginBottom: height * 0.012,
-    fontFamily: 'Menlo',
-    alignSelf: 'flex-start'
-  },
-  mealCountContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center'
-  },
-  bubble: {
-    width: 50,
-    marginHorizontal: 5,
-    backgroundColor: '#42D951',
-    borderRadius: 18,
-    paddingVertical: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000000',
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 }
-  },
-  grayBubble: {
-    backgroundColor: '#BBBBBB'
-  },
-  plusMinusText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFFFFF'
-  },
-  mealTimeContainer: {
-    ...compStyles.whiteContainer,
-    flexDirection: 'row'
-  },
-  mealLabel: {
-    fontSize: width * 0.04,
-    color: '#333',
-    fontFamily: 'Menlo',
-    flex: 1
-  },
-  timeButton: {
-    flex: 1,
-    paddingVertical: 10,
-    backgroundColor: '#42D951',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 5
-  },
-  timeText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold'
-  },
-  saveButtonContainer: {
-    minWidth: '100%',
-    marginVertical: 20,
-    shadowColor: '#000000',
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 }
-  },
-  saveButton: {
-    backgroundColor: '#42D951',
-    borderRadius: 10,
-    paddingVertical: 15,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
 
 export default TimingScreen

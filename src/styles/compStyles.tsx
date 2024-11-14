@@ -63,5 +63,9 @@ export default StyleSheet.create({
   themeBrightGreen: {
     color: '#42D951',
     backgroundColor: '#42D951'
+  },
+  themeGrey: {
+    backgroundColor: '#BBBBBB',
+    color: '#BBBBBB'
   }
 })

@@ -75,7 +75,7 @@ function DietScreen ({ navigation }: { navigation: any }) {
           />
         </View>
         <View style={compStyles.rowWhiteContainer}>
-          <Text style={fonts.heading2}>Daily Caloric Goal:</Text>
+          <Text style={[fonts.heading2, fonts.flex]}>Daily Caloric Goal:</Text>
           <TextInput
             style={inputStyle}
             placeholderTextColor={'#999'}
@@ -88,7 +88,9 @@ function DietScreen ({ navigation }: { navigation: any }) {
           />
         </View>
         <View style={compStyles.rowWhiteContainer}>
-          <Text style={fonts.heading2}>Daily Hydration Goal (oz):</Text>
+          <Text style={[fonts.heading2, fonts.flex]}>
+            Daily Hydration Goal (oz):
+          </Text>
           <TextInput
             style={inputStyle}
             placeholderTextColor={'#999'}

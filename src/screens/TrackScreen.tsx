@@ -10,6 +10,8 @@ import {
 import { LineChart } from 'react-native-chart-kit'
 import AppStyles from '../styles/Styles'
 import DefaultPage from '../components/generics/DefaultPage'
+import compStyles from '../styles/compStyles'
+import fonts from '../styles/fonts'
 
 const { width, height } = Dimensions.get('window')
 
@@ -27,58 +29,43 @@ function TrackScreen ({ navigation }: { navigation: any }): React.JSX.Element {
     ]
   }
 
-  const toggleTracking = () => {
-    setTracking(!tracking)
-  }
-
   return (
-    <SafeAreaView style={{ ...AppStyles.defaultBackground, flex: 1 }}>
-      <DefaultPage navigation={navigation} title='Track'>
-        <ScrollView contentContainerStyle={styles.container}>
-          {/* Calorie Tracker */}
-          <View style={styles.statBox}>
-            <Text style={styles.statTitle}>Calories Today</Text>
-            <Text style={styles.statValue}>0 Cal</Text>
-          </View>
+    <DefaultPage navigation={navigation} title='Track'>
+      <ScrollView>
+        <View style={[compStyles.whiteContainer, compStyles.themeBrightGreen]}>
+          <Text style={fonts.whiteText}>Calories Today</Text>
+          <Text style={fonts.whiteTextBold}>0 Cal</Text>
+        </View>
 
-          {/* Daily Hydration Tracker */}
-          <View style={styles.statBox}>
-            <Text style={styles.statTitle}>Daily Hydration</Text>
-            <Text style={styles.statValue}>0 oz</Text>
-          </View>
-
-          {/* Weight Tracker
-          <View style={styles.statBox}>
-            <Text style={styles.statTitle}>Weight</Text>
-            <Text style={styles.statValue}>0 lbs</Text>
-          </View> */}
-
-          {/* Progress Chart */}
-          <Text style={styles.chartTitle}>Weekly Calorie Intake</Text>
-          <LineChart
-            data={calorieData}
-            width={width * 0.9} // Adjusts to screen width
-            height={height * 0.3} // Adjusts to screen height
-            yAxisSuffix=' Cal'
-            chartConfig={{
-              backgroundColor: '#FFF',
-              backgroundGradientFrom: '#FFF',
-              backgroundGradientTo: '#FFF',
-              decimalPlaces: 0,
-              color: () => '#39c026',
-              labelColor: () => '#666',
-              propsForDots: {
-                r: '5',
-                strokeWidth: '2',
-                stroke: '#39c026'
-              }
-            }}
-            bezier
-            style={styles.chart}
-          />
-        </ScrollView>
-      </DefaultPage>
-    </SafeAreaView>
+        {/* Daily Hydration Tracker */}
+        <View style={[compStyles.whiteContainer, compStyles.themeBrightGreen]}>
+          <Text style={fonts.whiteText}>Daily Hydration</Text>
+          <Text style={fonts.whiteTextBold}>0 oz</Text>
+        </View>
+        <Text style={fonts.heading2}>Weekly Calorie Intake</Text>
+        <LineChart
+          data={calorieData}
+          width={width * 0.9}
+          height={height * 0.3}
+          yAxisSuffix=' Cal'
+          chartConfig={{
+            backgroundColor: '#FFF',
+            backgroundGradientFrom: '#FFF',
+            backgroundGradientTo: '#FFF',
+            decimalPlaces: 0,
+            color: () => '#39c026',
+            labelColor: () => '#666',
+            propsForDots: {
+              r: '5',
+              strokeWidth: '2',
+              stroke: '#39c026'
+            }
+          }}
+          bezier
+          style={styles.chart}
+        />
+      </ScrollView>
+    </DefaultPage>
   )
 }
 
