@@ -3,6 +3,7 @@ import { View, Image, Dimensions } from 'react-native'
 import DefaultContainer from '../components/generics/DefaultContainer'
 import HomeScreenButtom from '../components/generics/HomeScreenButton'
 import compStyles from '../styles/compStyles'
+import Spacer from '../components/generics/Spacer'
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -18,7 +19,7 @@ function HomeScreen ({ navigation }: { navigation: any }): React.JSX.Element {
           resizeMode='cover'
         />
       </View>
-      <View style={{ flexDirection: 'row', flex: 0.45 }}>
+      <View style={{ flexDirection: 'row', flex: 0.5 }}>
         <View style={{ marginLeft: '5%', flex: 1 }}>
           <HomeScreenButtom
             title={'Plan'}
@@ -38,7 +39,7 @@ function HomeScreen ({ navigation }: { navigation: any }): React.JSX.Element {
           />
         </View>
       </View>
-      <View style={{ flexDirection: 'row', flex: 0.45 }}>
+      <View style={{ flexDirection: 'row', flex: 0.5 }}>
         <View style={{ marginLeft: '5%', flex: 1 }}>
           <HomeScreenButtom
             title={'Meals'}

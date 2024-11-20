@@ -4,26 +4,28 @@ import {
   Text,
   View,
   TouchableOpacity,
-  StyleSheet,
   TextInput,
-  Dimensions,
-  Animated
+  Dimensions
 } from 'react-native'
-import React, { useEffect, useRef } from 'react'
 import DefaultPage from '../../components/generics/DefaultPage'
 import DietPicker from '../../components/DietPicker'
 import GenericPreference from '../../components/generics/GenericPreference'
 import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
+import { LogBox } from 'react-native'
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state'
+])
 const { width, height } = Dimensions.get('window')
 
-function DietScreen ({ navigation }: { navigation: any }) {
+function DietScreen ({ navigation, route }: { navigation: any; route: any }) {
   const [currentWeight, setCurrentWeight] = useState('')
   const [weightGoal, setWeightGoal] = useState('')
   const [calories, setCalories] = useState('')
   const [hydration, setHydration] = useState('')
+  const { onSave } = route.params
 
   return (
     <DefaultPage title={'Diet Preferences'} navigation={navigation}>
@@ -52,59 +54,63 @@ function DietScreen ({ navigation }: { navigation: any }) {
           <Text style={fonts.heading2}>Current Weight (lbs):</Text>
           <TextInput
             style={inputStyle} // Set font size to prevent dynamic resizing}}}
-            placeholderTextColor={'#999'}
+            placeholderTextColor={compStyles.themeGrey.color}
             placeholder={'0'}
             inputMode='numeric'
             value={currentWeight}
             returnKeyType='done'
             onChangeText={setCurrentWeight}
-            cursorColor={'#42D951'}
+            cursorColor={compStyles.themeBrightGreen.color}
           />
         </View>
         <View style={compStyles.rowWhiteContainer}>
           <Text style={fonts.heading2}>Goal Weight (lbs):</Text>
           <TextInput
             style={inputStyle}
-            placeholderTextColor={'#999'}
+            placeholderTextColor={compStyles.themeGrey.color}
             placeholder={'0'}
             inputMode='numeric'
             value={weightGoal}
             returnKeyType='done'
             onChangeText={setWeightGoal}
-            cursorColor={'#42D951'}
+            cursorColor={compStyles.themeBrightGreen.color}
           />
         </View>
         <View style={compStyles.rowWhiteContainer}>
           <Text style={[fonts.heading2, fonts.flex]}>Daily Caloric Goal:</Text>
           <TextInput
             style={inputStyle}
-            placeholderTextColor={'#999'}
+            placeholderTextColor={compStyles.themeGrey.color}
             placeholder={'0'}
             inputMode='numeric'
             value={calories}
             returnKeyType='done'
             onChangeText={setCalories}
-            cursorColor={'#42D951'}
+            cursorColor={compStyles.themeBrightGreen.color}
           />
         </View>
         <View style={compStyles.rowWhiteContainer}>
-          <Text style={[fonts.heading2, fonts.flex]}>
-            Daily Hydration Goal (oz):
-          </Text>
+          <Text style={[fonts.heading2]}>Daily Hydration Goal (oz):</Text>
           <TextInput
             style={inputStyle}
-            placeholderTextColor={'#999'}
+            placeholderTextColor={compStyles.themeGrey.color}
             placeholder={'0'}
             inputMode='numeric'
             value={hydration}
             returnKeyType='done'
             onChangeText={setHydration}
-            cursorColor={'#42D951'}
+            cursorColor={compStyles.themeBrightGreen.color}
           />
         </View>
         <Spacer />
 
-        <TouchableOpacity style={compStyles.bottomGreenButton}>
+        <TouchableOpacity
+          onPress={() => {
+            onSave()
+            navigation.pop()
+          }}
+          style={compStyles.bottomGreenButton}
+        >
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>
         <Spacer />

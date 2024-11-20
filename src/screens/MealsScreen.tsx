@@ -138,6 +138,9 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
         <Text style={fonts.whiteText}>Regenerate</Text>
       </TouchableOpacity>
       <Spacer />
+      <Spacer />
+      <Spacer />
+      <Spacer />
     </DefaultPage>
   )
 }

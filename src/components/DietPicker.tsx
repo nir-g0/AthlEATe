@@ -51,8 +51,8 @@ function DietPicker ({
               compStyles.bubble,
               {
                 backgroundColor: selectedDiet.includes(type)
-                  ? '#39c026'
-                  : '#d1d1d1'
+                  ? compStyles.themeBrightGreen.color
+                  : compStyles.themeGrey.color
               }
             ]}
           />

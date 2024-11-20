@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, View } from 'react-native'
 import fonts from '../styles/fonts'
 import compStyles from '../styles/compStyles'
 
-function PlanButton ({ title, press = () => {} }) {
+function PlanButton ({ title, press = () => {}, expand = 'Edit' }) {
   return (
     <View
       style={{
@@ -15,7 +15,7 @@ function PlanButton ({ title, press = () => {} }) {
       </View>
 
       <TouchableOpacity onPress={press}>
-        <Text style={fonts.greyTextSmall}>Edit</Text>
+        <Text style={fonts.greyTextSmall}>{expand}</Text>
       </TouchableOpacity>
     </View>
   )

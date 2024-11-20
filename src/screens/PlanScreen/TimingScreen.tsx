@@ -12,15 +12,20 @@ import DefaultPage from '../../components/generics/DefaultPage'
 import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
+import { LogBox } from 'react-native'
 
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state'
+])
 const { width } = Dimensions.get('window')
 
-function TimingScreen ({ navigation }) {
+function TimingScreen ({ navigation, route }: { navigation: any; route: any }) {
   const [budget, setBudget] = useState(3)
   const [mealCount, setMealCount] = useState(3) // Default 3 meals per day
   const [mealTimes, setMealTimes] = useState(
     Array.from({ length: 3 }, () => new Date())
   )
+  const { onSave } = route.params
   const [showPickerIndex, setShowPickerIndex] = useState(-1) // Track which meal time picker is open
 
   const handleTimeChange = (event, selectedTime, index) => {
@@ -137,7 +142,13 @@ function TimingScreen ({ navigation }) {
           />
         </View>
         <Spacer />
-        <TouchableOpacity style={compStyles.bottomGreenButton}>
+        <TouchableOpacity
+          onPress={() => {
+            onSave()
+            navigation.pop()
+          }}
+          style={compStyles.bottomGreenButton}
+        >
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>
         <Spacer />

@@ -14,15 +14,20 @@ import Graph from '../../components/Graph'
 import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
+import { LogBox } from 'react-native'
 
-const { width, height } = Dimensions.get('window')
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state'
+])
+const { width } = Dimensions.get('window')
 
-function SportScreen ({ navigation }) {
+function SportScreen ({ navigation, route }: { navigation: any; route: any }) {
   const [practiceCount, setPracticeCount] = useState(0)
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const [showStartPicker, setShowStartPicker] = useState(false)
   const [showEndPicker, setShowEndPicker] = useState(false)
+  const { onSave } = route.params
 
   const today = new Date()
   const oneYearAgo = new Date(
@@ -149,7 +154,13 @@ function SportScreen ({ navigation }) {
           </TouchableOpacity>
         </View>
         <Spacer />
-        <TouchableOpacity style={compStyles.bottomGreenButton}>
+        <TouchableOpacity
+          onPress={() => {
+            onSave()
+            navigation.pop()
+          }}
+          style={compStyles.bottomGreenButton}
+        >
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>
         <Spacer />
@@ -159,38 +170,19 @@ function SportScreen ({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: width * 0.04,
-    color: '#333',
-    fontWeight: '600',
-    fontFamily: 'Menlo',
-    alignSelf: 'flex-start',
-    marginBottom: height * 0.02
-  },
   dateButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: height * 0.01
-    // ...shadow
+    justifyContent: 'space-between'
   },
   dateButton: {
     flex: 1,
     marginHorizontal: width * 0.015,
-    paddingVertical: height * 0.015,
-    backgroundColor: '#42D951',
-    borderRadius: width * 0.03,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  dateText: {
-    color: '#FFF',
-    fontWeight: '600',
-    fontSize: width * 0.04
+    ...compStyles.bubble,
+    ...compStyles.themeBrightGreen
   },
   datePickerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: height * 0.01
+    justifyContent: 'space-around'
   },
   practiceCountContainer: {
     flexDirection: 'row',
