@@ -8,31 +8,53 @@ function DailyInsights () {
   const hydration = 40
   return (
     <View>
-      <Text style={fonts.heading1}>🌟Daily insights🌟</Text>
+      <Text style={fonts.heading1}>Daily insights</Text>
       <View>
         <View
           style={[
             compStyles.bubble,
-            compStyles.themeBrightGreen,
+            compStyles.themeWhite,
             compStyles.shadow,
-            { margin: '1%' }
+            { marginVertical: '1%', marginHorizontal: '2.5%' }
           ]}
         >
-          <Text style={[fonts.whiteTextBold]}>Calories Eaten:</Text>
-          <Text style={fonts.whiteText}>{calories} Cal</Text>
+          <Text
+            style={[
+              fonts.whiteTextBold,
+              { color: compStyles.themeGreen.color }
+            ]}
+          >
+            Calories Eaten:
+          </Text>
+          <Text
+            style={[fonts.whiteText, { color: compStyles.themeGrey.color }]}
+          >
+            {calories} Cal
+          </Text>
         </View>
       </View>
       <View>
         <View
           style={[
             compStyles.bubble,
-            compStyles.themeBrightGreen,
+            compStyles.themeWhite,
             compStyles.shadow,
-            { margin: '1%' }
+            { marginVertical: '1%', marginHorizontal: '2.5%' }
           ]}
         >
-          <Text style={fonts.whiteTextBold}>Water Drank:</Text>
-          <Text style={fonts.whiteText}>{hydration} Oz</Text>
+          <Text
+            style={[
+              fonts.whiteTextBold,
+              { color: compStyles.themeGreen.color }
+            ]}
+          >
+            Water Drank:
+          </Text>
+          <Text
+            style={[fonts.whiteText, { color: compStyles.themeGrey.color }]}
+          >
+            {hydration} Oz
+          </Text>
         </View>
       </View>
     </View>

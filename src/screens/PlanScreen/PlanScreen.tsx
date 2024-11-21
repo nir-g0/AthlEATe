@@ -99,6 +99,7 @@ function PlanScreen ({ navigation }) {
             />
           )}
         </View>
+        <Spacer />
         <PlanButton
           title={'Diet preferences & allergies'}
           press={() => {
@@ -142,7 +143,6 @@ function PlanScreen ({ navigation }) {
             })
           }}
         />
-        <Spacer />
         <Spacer />
         <TouchableOpacity
           disabled={isDisabled}

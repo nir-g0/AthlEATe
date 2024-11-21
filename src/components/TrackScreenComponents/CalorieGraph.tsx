@@ -29,7 +29,7 @@ const CalorieGraph = () => {
 
   return (
     <View>
-      <Text style={fonts.heading1}>⛽Caloric Intake⛽</Text>
+      <Text style={fonts.heading1}>Caloric Intake</Text>
 
       {/* Line Chart */}
       <LineChart
@@ -44,7 +44,7 @@ const CalorieGraph = () => {
           backgroundGradientFrom: '#ffffff',
           backgroundGradientTo: '#ffffff',
           decimalPlaces: 0,
-          color: (opacity = 1) => `#39c026`, // Blue
+          color: (opacity = 1) => `#42D951`, // Blue
           labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: {
             borderRadius: 16
