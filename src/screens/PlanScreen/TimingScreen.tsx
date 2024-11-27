@@ -13,6 +13,7 @@ import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
 import { LogBox } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state'
@@ -27,6 +28,20 @@ function TimingScreen ({ navigation, route }: { navigation: any; route: any }) {
   )
   const { onSave } = route.params
   const [showPickerIndex, setShowPickerIndex] = useState(-1) // Track which meal time picker is open
+
+  const saveData = async () => {
+    try {
+      let dataObj = {
+        budget: budget,
+        mealCount: mealCount,
+        mealTimes: mealTimes
+      }
+      let dataObjString = JSON.stringify(dataObj)
+      await AsyncStorage.setItem('timePrefs', dataObjString)
+    } catch (e) {
+      console.error('Failed to save the data to the storage', e)
+    }
+  }
 
   const handleTimeChange = (event, selectedTime, index) => {
     if (event.type === 'set' && selectedTime) {
@@ -64,21 +79,21 @@ function TimingScreen ({ navigation, route }: { navigation: any; route: any }) {
     <DefaultPage title='Meal Timing' navigation={navigation}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={fonts.heading2}>How many meals do you want per day?</Text>
-        <View style={compStyles.rowWhiteContainer}>
+        <View style={[compStyles.rowWhiteContainer, compStyles.themeWhite]}>
           <TouchableOpacity
             onPress={() => adjustMealCount(-1)}
-            style={[compStyles.circle, compStyles.themeGrey]}
+            style={[compStyles.circle, compStyles.themeBrightGreen]}
           >
             <Text style={fonts.whiteTextBold}>-</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[compStyles.circle, compStyles.themeBrightGreen]}
-          >
-            <Text style={fonts.whiteTextBold}>{mealCount}</Text>
+          <TouchableOpacity style={[compStyles.bubble]}>
+            <Text style={[fonts.whiteTextBold, { color: 'black' }]}>
+              {mealCount}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => adjustMealCount(1)}
-            style={[compStyles.circle, compStyles.themeGrey]}
+            style={[compStyles.circle, compStyles.themeBrightGreen]}
           >
             <Text style={fonts.whiteTextBold}>+</Text>
           </TouchableOpacity>
@@ -138,16 +153,17 @@ function TimingScreen ({ navigation, route }: { navigation: any; route: any }) {
             onValueChange={value => setBudget(value)}
             minimumTrackTintColor='#CCCCCC'
             maximumTrackTintColor='#DDDDDC'
-            thumbTintColor='#42D951'
+            thumbTintColor={compStyles.themeBrightGreen.color}
           />
         </View>
         <Spacer />
         <TouchableOpacity
           onPress={() => {
+            saveData()
             onSave()
             navigation.pop()
           }}
-          style={compStyles.bottomGreenButton}
+          style={[compStyles.longButton, compStyles.themeBrightGreen]}
         >
           <Text style={fonts.whiteTextBold}>Save</Text>
         </TouchableOpacity>

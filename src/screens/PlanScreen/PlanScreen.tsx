@@ -2,16 +2,18 @@ import React, { useState, useRef } from 'react'
 import {
   Text,
   TouchableOpacity,
-  ScrollView,
   Animated,
   Dimensions,
-  View
+  View,
+  Alert
 } from 'react-native'
 import DefaultPage from '../../components/generics/DefaultPage'
 import PlanButton from '../../components/PlanButton'
 import fonts from '../../styles/fonts'
 import compStyles from '../../styles/compStyles'
 import Spacer from '../../components/generics/Spacer'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { chatGPTRequest } from '../../utils/MealGenerator'
 
 function PlanScreen ({ navigation }) {
   const [prog, setProg] = useState(
@@ -66,13 +68,40 @@ function PlanScreen ({ navigation }) {
   }
 
   const { height } = Dimensions.get('screen')
+  const loadData = async () => {
+    try {
+      const allKeys = await AsyncStorage.getAllKeys() // Get all keys
+      const allData = await Promise.all(
+        allKeys.map(async key => {
+          const value = await AsyncStorage.getItem(key) // Get value for each key
+          return `${key}: ${value}` // Format as "key: value"
+        })
+      )
+      setIsDisabled(true)
+      const allDataAsString = allData.join(', ')
+      // Make the chatGPT request and get the response
+      navigation.pop()
+      navigation.navigate('Loading')
+      const response = await chatGPTRequest(allDataAsString)
+      // Navigate to MealsScreen and pass the meals data
+      await AsyncStorage.setItem('meals', response)
+      navigation.pop()
+      navigation.navigate('Meals', { meals: response })
 
+      // Clear AsyncStorage
+      // await AsyncStorage.clear()
+      console.log('Data loaded!')
+    } catch (e) {
+      console.error(e)
+    }
+  }
   return (
     <DefaultPage navigation={navigation} title='Plan'>
       <View>
         <View
           style={[
             compStyles.rowWhiteContainer,
+            compStyles.themeWhite,
             { width: height / 3, height: height / 3 }
           ]}
         >
@@ -147,7 +176,7 @@ function PlanScreen ({ navigation }) {
         <TouchableOpacity
           disabled={isDisabled}
           style={[
-            compStyles.bottomGreenButton,
+            compStyles.longButton,
             {
               shadowOpacity: isDisabled ? 0 : 0.1,
               backgroundColor: isDisabled
@@ -156,8 +185,7 @@ function PlanScreen ({ navigation }) {
             }
           ]}
           onPress={() => {
-            navigation.pop()
-            navigation.navigate('Meals')
+            loadData()
           }}
         >
           <Text style={fonts.whiteTextBold}>Generate Plan</Text>

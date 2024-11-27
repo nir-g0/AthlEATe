@@ -12,17 +12,17 @@ function Progress ({
   prog2: number
 }) {
   return (
-    <View style={compStyles.rowWhiteContainer}>
+    <View style={(compStyles.rowWhiteContainer, compStyles.themeWhite)}>
       <ProgressChart
         data={[prog2, prog1, prog]}
         width={width * 0.8}
-        height={width * (4 / 5)}
+        height={width * (7 / 8)}
         strokeWidth={width / 12}
         radius={width / 8.5}
         chartConfig={{
-          backgroundGradientFrom: '#FFF',
-          backgroundGradientTo: '#FFF',
-          color: (opacity = 1) => `rgba(10, 214, 38, ${opacity})`
+          backgroundGradientFrom: compStyles.themeWhite.color,
+          backgroundGradientTo: compStyles.themeWhite.color,
+          color: (opacity = 1) => `rgba(46, 204, 113, ${opacity})`
         }}
         hideLegend={true}
       />

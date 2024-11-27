@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/nirguberman/Development/AthlEATe/AthlEATE_2.0/AthlEATe_Git",
+      "program": "/Users/nirguberman/Development/AthlEATe/AthlEATE_2.0/AthlEATe_Git/build/Debug/outDebug"
+    }
+  ]
+}

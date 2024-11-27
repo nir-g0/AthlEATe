@@ -44,7 +44,7 @@ const CalorieGraph = () => {
           backgroundGradientFrom: '#ffffff',
           backgroundGradientTo: '#ffffff',
           decimalPlaces: 0,
-          color: (opacity = 1) => `#42D951`, // Blue
+          color: (opacity = 1) => compStyles.themeBrightGreen.color, // Blue
           labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: {
             borderRadius: 16

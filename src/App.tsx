@@ -9,6 +9,7 @@ import DefaultTitle from './components/generics/DefaultTitle.tsx'
 import Diet from './screens/PlanScreen/DietScreen.tsx'
 import TimingScreen from './screens/PlanScreen/TimingScreen.tsx'
 import SportScreen from './screens/PlanScreen/SportScreen.tsx'
+import LoadScreen from './screens/LoadScreen.tsx'
 
 const Stack = createNativeStackNavigator()
 
@@ -57,6 +58,11 @@ function App (): React.JSX.Element {
           component={MealsScreen}
         />
         <Stack.Screen options={PageOption} name='Scan' component={ScanScreen} />
+        <Stack.Screen
+          options={{ ...PageOption, headerBackVisible: false }}
+          name='Loading'
+          component={LoadScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

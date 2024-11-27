@@ -21,7 +21,7 @@ function DailyInsights () {
           <Text
             style={[
               fonts.whiteTextBold,
-              { color: compStyles.themeGreen.color }
+              { color: compStyles.themeBrightGreen.color }
             ]}
           >
             Calories Eaten:
@@ -45,7 +45,7 @@ function DailyInsights () {
           <Text
             style={[
               fonts.whiteTextBold,
-              { color: compStyles.themeGreen.color }
+              { color: compStyles.themeBrightGreen.color }
             ]}
           >
             Water Drank:

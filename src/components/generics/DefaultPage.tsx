@@ -1,9 +1,12 @@
 import { SafeAreaView, View, Text } from 'react-native'
 import fonts from '../../styles/fonts'
+import compStyles from '../../styles/compStyles'
 
 function DefaultPage ({ navigation, title = 'Title', children }) {
   return (
-    <SafeAreaView style={{ backgroundColor: '#FFFFFF', flex: 1 }}>
+    <SafeAreaView
+      style={{ backgroundColor: compStyles.themeWhite.color, flex: 1 }}
+    >
       <View
         style={{
           flexDirection: 'row',

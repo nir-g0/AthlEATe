@@ -12,7 +12,7 @@ function HomeScreenButtom ({
   return (
     <TouchableOpacity
       style={{
-        backgroundColor: '#42D951',
+        backgroundColor: compStyles.themeBrightGreen.backgroundColor,
         flex: 1,
         borderRadius: 10,
         margin: '2.5%',

@@ -36,9 +36,18 @@ export default StyleSheet.create({
     alignSelf: 'center',
     width: 'auto'
   },
-  bottomGreenButton: {
+  rowContainerLong: {
+    flexDirection: 'row',
+    marginVertical: '1%',
+    backgroundColor: '#FFF',
+    borderRadius: width * 0.04,
+    padding: '3%',
+    width: '95%',
+    alignSelf: 'center',
+    ...shadow
+  },
+  longButton: {
     marginHorizontal: '2.5%',
-    backgroundColor: '#42D951',
     borderRadius: width * 0.05,
     paddingVertical: height * 0.02,
     alignItems: 'center',
@@ -61,19 +70,15 @@ export default StyleSheet.create({
     ...shadow
   },
   themeBrightGreen: {
-    color: '#42D951',
-    backgroundColor: '#42D951'
+    color: '#3fc380',
+    backgroundColor: '#3fc380'
   },
   themeGrey: {
     backgroundColor: '#BBBBBB',
     color: '#BBBBBB'
   },
   themeWhite: {
-    backgroundColor: '#FFFFFF',
-    color: '#FFFFFF'
-  },
-  themeGreen: {
-    backgroundColor: '#39c026',
-    color: '#39c026'
+    backgroundColor: '#F8F9F9',
+    color: '#F8F9F9'
   }
 })

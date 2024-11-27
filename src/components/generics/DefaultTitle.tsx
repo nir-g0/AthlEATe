@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
+import compStyles from '../../styles/compStyles'
 
 function DefaultTitle (): React.JSX.Element {
   return (
@@ -20,7 +21,7 @@ const styleSheet = StyleSheet.create({
     fontFamily: 'Menlo',
     fontSize: 36,
     fontWeight: '800',
-    color: '#39c026'
+    color: compStyles.themeBrightGreen.color
   }
 })
 

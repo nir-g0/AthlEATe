@@ -4,6 +4,7 @@ import DefaultContainer from '../components/generics/DefaultContainer'
 import HomeScreenButtom from '../components/generics/HomeScreenButton'
 import compStyles from '../styles/compStyles'
 import Spacer from '../components/generics/Spacer'
+import Progress from '../components/Progress'
 
 type SectionProps = PropsWithChildren<{
   title: string
@@ -12,13 +13,7 @@ const { width, height } = Dimensions.get('screen')
 function HomeScreen ({ navigation }: { navigation: any }): React.JSX.Element {
   return (
     <DefaultContainer>
-      <View style={compStyles.whiteContainer}>
-        <Image
-          source={require('../../assets/images/tempCircles.png')} // Path to the image file
-          style={{ width: height / 2.65, height: height / 2.65 }}
-          resizeMode='cover'
-        />
-      </View>
+      <Progress prog={0.5} prog1={0.3} prog2={0.8} />
       <View style={{ flexDirection: 'row', flex: 0.5 }}>
         <View style={{ marginLeft: '5%', flex: 1 }}>
           <HomeScreenButtom

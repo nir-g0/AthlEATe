@@ -1,55 +1,87 @@
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   FlatList,
-  Button,
   Dimensions
 } from 'react-native'
 import { SafeAreaView } from 'react-native'
 import DefaultPage from '../components/generics/DefaultPage'
-import AppStyles from '../styles/Styles'
-import React, { useEffect, useState } from 'react'
-import MealCard from '../components/MealCard'
+import MealCard from '../components/MealScreenComponents/MealCard'
+import Spacer from '../components/generics/Spacer'
 import fonts from '../styles/fonts'
 import compStyles from '../styles/compStyles'
-import Spacer from '../components/generics/Spacer'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width, height } = Dimensions.get('window')
 
-function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
+function MealsScreen ({ route, navigation }) {
   const [selectedDay, setSelectedDay] = useState(0)
-  const [orderedDates, setOrderedDates] = useState<Date[]>([])
-  const [meals, setMeals] = useState([])
-
-  const mealOptions = [
-    { name: 'Chicken Wrap', calories: 420, protein: 25, carbs: 40, fat: 12 },
-    {
-      name: 'Grilled Chicken Salad',
-      calories: 450,
-      protein: 30,
-      carbs: 20,
-      fat: 15
-    },
-    { name: 'Protein Smoothie', calories: 300, protein: 20, carbs: 35, fat: 5 },
-    { name: 'Quinoa Bowl', calories: 500, protein: 25, carbs: 50, fat: 10 },
-    { name: 'Spaghetti Bowl', calories: 800, protein: 25, carbs: 50, fat: 10 },
-    {
-      name: 'Salmon & Veggies',
-      calories: 480,
-      protein: 35,
-      carbs: 15,
-      fat: 18
-    },
-    {
-      name: 'Oatmeal with Berries',
-      calories: 350,
-      protein: 10,
-      carbs: 60,
-      fat: 8
-    }
-  ]
+  const [orderedDates, setOrderedDates] = useState([])
+  const [mealsByDay, setMealsByDay] = useState({})
+  const mealOptions = {
+    0: [
+      {
+        meal: 'Breakfast',
+        time: '08:00 AM',
+        dish: 'Avocado and Bacon Omelette',
+        ingredients: [
+          { item: 'Eggs', quantity: '3 large' },
+          { item: 'Avocado', quantity: '1/2 medium' },
+          { item: 'Bacon', quantity: '2 slices' },
+          { item: 'Cheddar cheese', quantity: '30g' }
+        ],
+        macros: {
+          calories: 450,
+          protein: 30,
+          carbs: 5,
+          fats: 35
+        },
+        hydration: '250 ml'
+      },
+      {
+        meal: 'Lunch',
+        time: '12:00 PM',
+        dish: 'Zucchini Noodles with Pesto Chicken',
+        ingredients: [
+          { item: 'Zucchini', quantity: '2 medium' },
+          { item: 'Pesto sauce', quantity: '50g' },
+          { item: 'Chicken breast', quantity: '150g' },
+          { item: 'Parmesan cheese', quantity: '20g' }
+        ],
+        macros: {
+          calories: 400,
+          protein: 40,
+          carbs: 7,
+          fats: 25
+        },
+        hydration: '300 ml'
+      }
+    ],
+    1: [
+      {
+        meal: 'Dinner',
+        time: '06:00 PM',
+        dish: 'Grilled Salmon with Asparagus',
+        ingredients: [
+          { item: 'Salmon fillet', quantity: '200g' },
+          { item: 'Asparagus', quantity: '100g' },
+          { item: 'Olive oil', quantity: '1 tbsp' },
+          { item: 'Lemon', quantity: '1 wedge' }
+        ],
+        macros: {
+          calories: 500,
+          protein: 45,
+          carbs: 5,
+          fats: 36
+        },
+        hydration: '250 ml'
+      }
+    ]
+    // Add more days here
+  }
 
   useEffect(() => {
     const today = new Date()
@@ -59,25 +91,25 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
       return date
     })
     setOrderedDates(dates)
-    generateRandomMeals()
-  }, [])
 
-  const generateRandomMeals = () => {
-    const randomMeals = []
-    for (let i = 0; i < 3; i++) {
-      const randomMeal =
-        mealOptions[Math.floor(Math.random() * mealOptions.length)]
-      randomMeals.push({ ...randomMeal, id: `${i}-${randomMeal.name}` })
+    // Use passed meals or generate default meals
+    const { meals: routeMeals } = route.params || {}
+    const onLoad = async () => {
+      const exists = await AsyncStorage.getItem('meals')
+      if (routeMeals) {
+        const t = JSON.parse(`{${routeMeals}}`)
+        setMealsByDay(t)
+      } else if (exists) {
+        setMealsByDay(JSON.parse(`{${exists}}`))
+      } else {
+        setMealsByDay(mealOptions)
+      }
     }
-    setMeals(randomMeals)
-  }
+    onLoad()
+  }, [route])
 
-  useEffect(() => {
-    generateRandomMeals()
-  }, [selectedDay])
-
-  const handleGenerateDay = () => {
-    return orderedDates.map((date, index) => {
+  const handleGenerateDay = () =>
+    orderedDates.map((date, index) => {
       const day = date.getDate()
       const month = date.toLocaleString('default', { month: 'short' })
 
@@ -86,7 +118,10 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
           key={index}
           style={{
             ...compStyles.bubble,
-            backgroundColor: index === selectedDay ? '#42D951' : '#FFFFFF',
+            backgroundColor:
+              index === selectedDay
+                ? compStyles.themeBrightGreen.color
+                : compStyles.themeWhite.color,
             borderBottomWidth: index === selectedDay ? 0 : 0.5,
             borderRadius: index === selectedDay ? width * 0.04 : 15
           }}
@@ -111,45 +146,32 @@ function MealsScreen ({ navigation }: { navigation: any }): React.JSX.Element {
         </TouchableOpacity>
       )
     })
-  }
 
-  const renderMealCard = ({ item }) => (
-    <MealCard
-      title={item.name}
-      calories={item.calories}
-      protein={item.protein}
-      carbs={item.carbs}
-      fat={item.fat}
-    />
-  )
+  const renderMealCard = ({ item }) => <MealCard object={item} />
+
+  const currentMeals = mealsByDay[selectedDay + 1] || []
 
   return (
     <DefaultPage navigation={navigation} title='Meals'>
-      <View style={compStyles.rowWhiteContainer}>{handleGenerateDay()}</View>
+      <View style={[compStyles.rowWhiteContainer, compStyles.themeWhite]}>
+        {handleGenerateDay()}
+      </View>
       <FlatList
-        data={meals}
+        data={currentMeals}
         renderItem={renderMealCard}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => `${selectedDay}-${index}`}
       />
       <TouchableOpacity
         style={[compStyles.whiteContainer, compStyles.themeBrightGreen]}
-        onPress={generateRandomMeals}
+        onPress={() => {
+          // Regenerate meals logic here
+        }}
       >
         <Text style={fonts.whiteText}>Regenerate</Text>
       </TouchableOpacity>
       <Spacer />
-      <Spacer />
-      <Spacer />
-      <Spacer />
     </DefaultPage>
   )
 }
-
-const styles = StyleSheet.create({
-  regenerateButtonContainer: {
-    alignItems: 'center',
-    marginVertical: height * 0.02
-  }
-})
 
 export default MealsScreen

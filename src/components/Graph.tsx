@@ -1,45 +1,24 @@
 import { useState } from 'react'
-import { Dimensions, Alert } from 'react-native'
+import { Dimensions, Alert, View } from 'react-native'
 import { LineChart } from 'react-native-chart-kit'
+import compStyles from '../styles/compStyles'
 
-function Graph () {
-  const [data, setData] = useState([
-    { idx: 0, value: Math.random() * 10, label: 'Jan', nonShorted: 'January' },
-    { idx: 1, value: Math.random() * 10, label: 'Feb', nonShorted: 'February' },
-    { idx: 2, value: Math.random() * 10, label: 'Mar', nonShorted: 'March' },
-    { idx: 3, value: Math.random() * 10, label: 'Apr', nonShorted: 'April' },
-    { idx: 4, value: Math.random() * 10, label: 'May', nonShorted: 'May' },
-    { idx: 5, value: Math.random() * 10, label: 'Jun', nonShorted: 'June' },
-    { idx: 6, value: Math.random() * 10, label: 'Jul', nonShorted: 'July' },
-    { idx: 7, value: Math.random() * 10, label: 'Aug', nonShorted: 'August' },
-    {
-      idx: 8,
-      value: Math.random() * 10,
-      label: 'Sep',
-      nonShorted: 'September'
-    },
-    { idx: 9, value: Math.random() * 10, label: 'Oct', nonShorted: 'October' },
-    {
-      idx: 10,
-      value: Math.random() * 10,
-      label: 'Nov',
-      nonShorted: 'November'
-    },
-    { idx: 11, value: Math.random() * 10, label: 'Dec', nonShorted: 'December' }
-  ])
+function Graph ({ data, setData }) {
+  const [segments, setSegments] = useState(5)
+
   return (
     <LineChart
       data={{
-        labels: data.map(d => {
+        labels: data.map((d: { label: any }) => {
           return d.label
         }),
-        datasets: [{ data: data.map(d => d.value) }]
+        datasets: [{ data: data.map((d: { value: any }) => d.value) }]
       }}
       fromZero
-      segments={5}
-      yAxisInterval={2}
+      segments={segments}
+      yAxisInterval={1}
       verticalLabelRotation={45}
-      width={Dimensions.get('window').width * 0.95}
+      width={Dimensions.get('window').width * 0.92}
       height={Dimensions.get('window').height / 2.75}
       yAxisLabel='Level '
       onDataPointClick={out => {
@@ -57,8 +36,8 @@ function Graph () {
               onPress: val => {
                 const intValue = parseInt(val)
                 if (!isNaN(intValue) && intValue >= 0 && intValue <= 10) {
-                  setData(prevData =>
-                    prevData.map((item, idx) =>
+                  setData((prevData: any[]) =>
+                    prevData.map((item: any, idx: number) =>
                       idx === out.index ? { ...item, value: intValue } : item
                     )
                   )
@@ -75,15 +54,15 @@ function Graph () {
         )
       }}
       chartConfig={{
-        backgroundColor: '#39c026',
-        backgroundGradientFrom: '#FFFFFF',
-        backgroundGradientTo: '#FFFFFF',
+        backgroundColor: compStyles.themeWhite.color,
+        backgroundGradientFrom: compStyles.themeWhite.color,
+        backgroundGradientTo: compStyles.themeWhite.color,
         decimalPlaces: 0,
-        color: (opacity = 1) => `rgba(76, 217, 99, 1)`,
+        color: (opacity = 1) => `rgba(46, 204, 113, 1)`,
         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         propsForDots: {
-          r: '8',
-          strokeWidth: '.31',
+          r: '6',
+          strokeWidth: '0',
           stroke: '#FFFFFF'
         },
         propsForBackgroundLines: {

@@ -32,7 +32,7 @@ function TrackScreen ({ navigation }: { navigation: any }): React.JSX.Element {
         >
           <PlanButton title={'Nutrition Trends'} expand={'Open'}></PlanButton>
         </TouchableOpacity>
-        <PlanButton title={'Weight'} expand={'Open'}></PlanButton>
+        <PlanButton title={'Weight Metrics'} expand={'Open'}></PlanButton>
         <PlanButton title={'Personal Metrics'} expand={'Open'}></PlanButton>
       </ScrollView>
     </DefaultPage>

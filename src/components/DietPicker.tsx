@@ -18,24 +18,28 @@ function DietPicker ({
 }: {
   onSelectionChange: (items: string[]) => void
 }) {
-  const [selectedDiet, setSelectedDiet] = useState<string[]>([''])
+  const [selectedDiet, setSelectedDiet] = useState<string[]>([])
 
-  const handleSelectionChange = () => {
-    onSelectionChange(selectedDiet)
+  const handleSelectionChange = updatedDiet => {
+    onSelectionChange(updatedDiet)
   }
 
   const toggleSelection = (type: string) => {
-    if (selectedDiet.includes(type)) {
-      setSelectedDiet(selectedDiet.filter(item => item !== type))
-    } else {
-      if (type === 'Default') {
-        setSelectedDiet(['Default'])
+    setSelectedDiet(prevDiet => {
+      let updatedDiet
+      if (prevDiet.includes(type)) {
+        updatedDiet = prevDiet.filter(item => item !== type)
       } else {
-        const filteredDiet = selectedDiet.filter(item => item !== 'Default')
-        setSelectedDiet([type, ...filteredDiet])
+        if (type === 'Default') {
+          updatedDiet = ['Default']
+        } else {
+          const filteredDiet = prevDiet.filter(item => item !== 'Default')
+          updatedDiet = [type, ...filteredDiet]
+        }
       }
-    }
-    handleSelectionChange()
+      handleSelectionChange(updatedDiet)
+      return updatedDiet
+    })
   }
 
   return (
@@ -43,7 +47,7 @@ function DietPicker ({
       {dietTypes.map(type => (
         <TouchableOpacity
           key={type}
-          style={compStyles.rowWhiteContainer}
+          style={[compStyles.rowWhiteContainer, compStyles.themeWhite]}
           onPress={() => toggleSelection(type)}
         >
           <View
@@ -56,9 +60,7 @@ function DietPicker ({
               }
             ]}
           />
-          <Text style={{ ...fonts.flex, ...fonts.greyText, marginLeft: '5%' }}>
-            {type}
-          </Text>
+          <Text style={{ ...fonts.greyText, marginLeft: '5%' }}>{type}</Text>
         </TouchableOpacity>
       ))}
     </View>
