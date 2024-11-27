@@ -24,7 +24,7 @@ function PlanScreen ({ navigation }) {
   const [diet, setDiet] = useState(false)
   const [sport, setSport] = useState(false)
   const [timing, setTiming] = useState(false)
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const newOpacity = useRef(new Animated.Value(0)).current
   const oldOpacity = useRef(new Animated.Value(1)).current
