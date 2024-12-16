@@ -9,29 +9,30 @@ const openai = axios.create({
   }
 })
 
-const generateMealsForDay = async (day, preferences) => {
+const generateMealsForDay = async preferences => {
   try {
     const response = await openai.post('/chat/completions', {
-      model: 'gpt-4o-2024-11-20',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
           content: `You are a meal generator. Respond in JSON with this structure:
-          [{
-            "meal": "Meal type (e.g., Breakfast, Lunch, Dinner)",
-            "time": "Time (e.g., 8:00 AM)",
-            "dish": "Dish name (e.g., Turkey Sandwich, Veggie Stir-Fry)",
-            "ingredients": [
-              { "item": "Ingredient", "quantity": "Amount (e.g., 1 cup)", "calories": "calories (e.g., 100)", "altenatives": [] }
-            ],
-            "macros": {
-              "calories": 0,
-              "protein": 0,
-              "carbs": 0,
-              "fats": 0
-            },
-            "hydration": "Water intake in oz (e.g., 8 oz)"
-          }]
+          {"day_int": [{
+              "meal": "Meal type (e.g., Breakfast, Lunch, Dinner)",
+              "time": "Time (e.g., 8:00 AM)",
+              "dish": "Dish name (e.g., Turkey Sandwich, Veggie Stir-Fry)",
+              "ingredients": [
+                { "item": "Ingredient", "quantity": "Amount (e.g., 1 cup)", "calories": "calories (e.g., 100)", "altenatives": [] }
+              ],
+              "macros": {
+                "calories": 0,
+                "protein": 0,
+                "carbs": 0,
+                "fats": 0
+              },
+              "hydration": "Water intake in oz (e.g., 8 oz)"
+        }]
+          }
             
           Make sure to:
           - Look at what you have previously generated, make sure to continue being UNIQUE
@@ -45,7 +46,7 @@ const generateMealsForDay = async (day, preferences) => {
         },
         {
           role: 'user',
-          content: `Generate a day of meals taking into account these preferences: ${JSON.stringify(
+          content: `Generate a week of meals taking into account these preferences: ${JSON.stringify(
             preferences
           )}.`
         }
@@ -56,9 +57,9 @@ const generateMealsForDay = async (day, preferences) => {
       .replace('json', '')
       .replace('```', '')
 
-    return { day, data: adjusted }
+    return adjusted
   } catch (error) {
-    console.error(`Error generating meals for Day ${day}:`, error)
+    console.error(`Error generating meals:`, error)
     throw error
   }
 }
@@ -67,14 +68,9 @@ const generateMealsForDay = async (day, preferences) => {
 export const chatGPTRequest = async preferences => {
   try {
     // Create an array of requests for 7 days
-    let weeklyMeals = ''
-    for (let day = 1; day <= 7; day++) {
-      // Sequentially generate meals for each day
-      await generateMealsForDay(day, preferences).then(({ day, data }) => {
-        weeklyMeals += `"${parseInt(day)}":${data},`
-      })
-    }
-    weeklyMeals = weeklyMeals.slice(0, weeklyMeals.length - 1)
+    let weeklyMeals = await generateMealsForDay(preferences)
+    console.log(weeklyMeals)
+    // weeklyMeals = weeklyMeals.slice(0, weeklyMeals.length - 1)
     return `${weeklyMeals}`
   } catch (error) {
     console.error('Error generating weekly meals:', error)

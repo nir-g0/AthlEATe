@@ -97,10 +97,11 @@ function MealsScreen ({ route, navigation }) {
     const onLoad = async () => {
       const exists = await AsyncStorage.getItem('meals')
       if (routeMeals) {
-        const t = JSON.parse(`{${routeMeals}}`)
+        const t = JSON.parse(routeMeals)
         setMealsByDay(t)
       } else if (exists) {
-        setMealsByDay(JSON.parse(`{${exists}}`))
+        const parsedMeals = JSON.parse(exists) // Parse the JSON string
+        setMealsByDay(parsedMeals)
       } else {
         setMealsByDay(mealOptions)
       }

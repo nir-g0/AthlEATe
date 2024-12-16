@@ -24,7 +24,7 @@ const MealCard = ({ object }) => {
   const [editingIndex, setEditingIndex] = useState(null)
   const [editingName, setEditingName] = useState('')
   const [editingQuantity, setEditingQuantity] = useState('')
-
+  console.log(object.macros)
   const handleRemoveIngredient = index => {
     const updatedIngredients = ingredients.filter((_, i) => i !== index)
     setIngredients(updatedIngredients)
